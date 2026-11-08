@@ -1,0 +1,6 @@
+check/
+__pycache__/
+*.pyc
+demo/out/
+demo/salmon.html
+.DS_Store

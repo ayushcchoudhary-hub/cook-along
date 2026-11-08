@@ -1,0 +1,630 @@
+{
+ "schema": 1,
+ "title": "Butcher's cheeseburgers with slow onions",
+ "slug": "burger-dinner",
+ "serves": 2,
+ "summary": "One pan does everything in turn: onions, then patties, then buns. The probe decides when the patties are done.",
+ "eat_at": "19:30",
+ "kitchen": {
+  "hobs": 4,
+  "ovens": 1,
+  "oven_type": "fan"
+ },
+ "dishes": [
+  {
+   "id": "burger",
+   "name": "Burgers"
+  },
+  {
+   "id": "onions",
+   "name": "Onions"
+  },
+  {
+   "id": "chips",
+   "name": "Chips"
+  }
+ ],
+ "ingredients": [
+  {
+   "key": "patties",
+   "dish": "burger",
+   "item": "beef patties from Turner & George",
+   "qty": "2 × 180–200 g"
+  },
+  {
+   "key": "buns",
+   "dish": "burger",
+   "item": "soft buns",
+   "qty": "2"
+  },
+  {
+   "key": "cheddar",
+   "dish": "burger",
+   "item": "mature cheddar",
+   "qty": "40–60 g"
+  },
+  {
+   "key": "pickles",
+   "dish": "burger",
+   "item": "dill pickles, plus the brine",
+   "qty": "a few slices"
+  },
+  {
+   "key": "mayonnaise",
+   "dish": "burger",
+   "item": "mayonnaise",
+   "qty": "2 tbsp"
+  },
+  {
+   "key": "mustard",
+   "dish": "burger",
+   "item": "Dijon or American mustard",
+   "qty": "1 tsp"
+  },
+  {
+   "key": "ketchup",
+   "dish": "burger",
+   "item": "ketchup",
+   "qty": "1 tsp"
+  },
+  {
+   "key": "onion",
+   "dish": "onions",
+   "item": "large onion",
+   "qty": "1"
+  },
+  {
+   "key": "butter",
+   "dish": "onions",
+   "item": "butter",
+   "qty": "15 g"
+  },
+  {
+   "key": "oil",
+   "dish": "onions",
+   "item": "neutral oil",
+   "qty": "a little"
+  },
+  {
+   "key": "salt and pepper",
+   "dish": "burger",
+   "item": "salt and pepper",
+   "qty": "to taste"
+  },
+  {
+   "key": "oven chips",
+   "dish": "chips",
+   "item": "oven chips (optional)",
+   "qty": "300–400 g"
+  }
+ ],
+ "equipment": [
+  "Nonstick frying pan with a lid",
+  "Food probe thermometer",
+  "Wooden spoon, spatula",
+  "Small bowls",
+  "Kitchen paper",
+  "Baking tray (for chips)"
+ ],
+ "steps": [
+  {
+   "id": "B0",
+   "dish": "burger",
+   "title": "Get everything out",
+   "line": "Patties stay in the fridge. Check the probe works.",
+   "chips": [
+    "Probe clean"
+   ],
+   "scene": {
+    "use": "prepB"
+   },
+   "hands": "active",
+   "duration": {
+    "typ": 5
+   },
+   "done": "Everything within reach.",
+   "needs": [
+    {
+     "item": "patties",
+     "qty": "2 × 180–200 g"
+    },
+    {
+     "item": "onion",
+     "qty": "1 large"
+    },
+    {
+     "item": "butter",
+     "qty": "15 g"
+    },
+    {
+     "item": "oil",
+     "qty": "a little"
+    },
+    {
+     "item": "mayonnaise",
+     "qty": "2 tbsp"
+    },
+    {
+     "item": "mustard",
+     "qty": "1 tsp"
+    },
+    {
+     "item": "ketchup",
+     "qty": "1 tsp"
+    },
+    {
+     "item": "pickles",
+     "qty": "a few slices"
+    },
+    {
+     "item": "cheddar",
+     "qty": "40–60 g"
+    },
+    {
+     "item": "buns",
+     "qty": "2"
+    },
+    {
+     "item": "salt and pepper",
+     "qty": "to taste"
+    },
+    {
+     "item": "oven chips",
+     "qty": "300–400 g (optional)"
+    }
+   ]
+  },
+  {
+   "id": "B1",
+   "dish": "onions",
+   "title": "Slice the onion thin",
+   "line": "Half-moons, about 3 mm. As thick as a £1 coin.",
+   "chips": [
+    "1 large onion",
+    "3 mm"
+   ],
+   "scene": {
+    "use": "halfmoon"
+   },
+   "needs": [
+    {
+     "item": "onion",
+     "qty": "1 large",
+     "from": "B0"
+    }
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 4
+   },
+   "after": [
+    "B0"
+   ],
+   "done": "A pile of thin half-moons."
+  },
+  {
+   "id": "B2",
+   "dish": "onions",
+   "title": "Onions low and slow",
+   "line": "Medium-low. Stir every few minutes. Splash of water if they catch.",
+   "chips": [
+    "10 g butter",
+    "30–40 min"
+   ],
+   "scene": {
+    "use": "onions"
+   },
+   "needs": [
+    {
+     "item": "butter",
+     "qty": "10 g",
+     "from": "B0"
+    }
+   ],
+   "resource": [
+    "hob",
+    "frying pan"
+   ],
+   "hands": "passive",
+   "duration": {
+    "min": 30,
+    "typ": 35,
+    "max": 40
+   },
+   "after": [
+    "B1"
+   ],
+   "check": {
+    "cue": "Soft, floppy, deep golden brown.",
+    "fallback": 5,
+    "pass": "Golden",
+    "fail": "Still pale"
+   },
+   "done": "Deep golden all over."
+  },
+  {
+   "id": "B3",
+   "dish": "burger",
+   "title": "Mix the sauce",
+   "line": "Mayo, mustard, ketchup, a splash of pickle brine. Taste.",
+   "chips": [
+    "2 tbsp mayo",
+    "1 tsp mustard",
+    "1 tsp ketchup",
+    "1 tsp brine"
+   ],
+   "scene": {
+    "use": "sauceMix"
+   },
+   "needs": [
+    {
+     "item": "mayonnaise",
+     "qty": "2 tbsp",
+     "from": "B0"
+    },
+    {
+     "item": "mustard",
+     "qty": "1 tsp",
+     "from": "B0"
+    },
+    {
+     "item": "ketchup",
+     "qty": "1 tsp",
+     "from": "B0"
+    }
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 2
+   },
+   "after": [
+    "B0"
+   ],
+   "ahead": true,
+   "hold": {
+    "max": 120,
+    "how": "in the fridge"
+   },
+   "done": "Tastes how you like it."
+  },
+  {
+   "id": "B4",
+   "dish": "burger",
+   "title": "Pickles, cheese, buns",
+   "line": "Thin cheese melts fast. Split the buns.",
+   "chips": [
+    "40–60 g cheddar",
+    "2 buns"
+   ],
+   "scene": {
+    "use": "slice"
+   },
+   "needs": [
+    {
+     "item": "cheddar",
+     "qty": "40–60 g",
+     "from": "B0"
+    },
+    {
+     "item": "pickles",
+     "qty": "a few slices",
+     "from": "B0"
+    },
+    {
+     "item": "buns",
+     "qty": "2",
+     "from": "B0"
+    }
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "B0"
+   ],
+   "ahead": true,
+   "hold": {
+    "max": 60,
+    "how": "by the hob"
+   },
+   "done": "All ready by the hob."
+  },
+  {
+   "id": "B5o",
+   "dish": "chips",
+   "title": "Oven on for chips",
+   "line": "Use the packet temperature.",
+   "chips": [
+    "Packet temperature"
+   ],
+   "optional": true,
+   "scene": {
+    "kind": "oven",
+    "temps": [
+     220,
+     200
+    ],
+    "tags": [
+     "Check the packet"
+    ]
+   },
+   "resource": [
+    "oven@200fan"
+   ],
+   "hands": "passive",
+   "duration": {
+    "typ": 15
+   },
+   "after": [
+    "B0"
+   ],
+   "done": "Oven is hot."
+  },
+  {
+   "id": "B5",
+   "dish": "chips",
+   "title": "Chips in",
+   "line": "Packet time. They finish with the burgers.",
+   "chips": [
+    "300–400 g",
+    "about 20 min"
+   ],
+   "optional": true,
+   "scene": {
+    "use": "chips"
+   },
+   "resource": [
+    "oven@200fan",
+    "baking tray"
+   ],
+   "hands": "passive",
+   "duration": {
+    "min": 18,
+    "typ": 20,
+    "max": 25
+   },
+   "after": [
+    "B5o"
+   ],
+   "hold": {
+    "max": 5,
+    "how": "in the switched-off oven"
+   },
+   "check": {
+    "cue": "Golden and crisp, as the packet says.",
+    "fallback": 3,
+    "pass": "Crisp",
+    "fail": "Pale"
+   },
+   "done": "Golden and crisp.",
+   "needs": [
+    {
+     "item": "oven chips",
+     "qty": "300–400 g",
+     "from": "B0"
+    }
+   ]
+  },
+  {
+   "id": "B6",
+   "dish": "onions",
+   "title": "Onions into a bowl",
+   "line": "Keep the pan. Wipe out any burnt bits.",
+   "scene": {
+    "use": "toBowl"
+   },
+   "resource": [
+    "hob",
+    "frying pan"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 1
+   },
+   "after": [
+    "B2"
+   ],
+   "hold": {
+    "max": 40,
+    "how": "in a bowl. They rewarm on the cheese"
+   },
+   "done": "Onions in a bowl, pan back on."
+  },
+  {
+   "id": "B7",
+   "dish": "burger",
+   "title": "Cook the patties",
+   "line": "Pat dry, season. Medium heat, thin film of oil. Do not squash.",
+   "chips": [
+    "2 patties",
+    "medium heat",
+    "10–15 min"
+   ],
+   "scene": {
+    "use": "patties"
+   },
+   "needs": [
+    {
+     "item": "patties",
+     "qty": "2",
+     "from": "B0"
+    },
+    {
+     "item": "oil",
+     "qty": "a little",
+     "from": "B0"
+    }
+   ],
+   "resource": [
+    "hob",
+    "frying pan"
+   ],
+   "hands": "active",
+   "duration": {
+    "min": 10,
+    "typ": 12,
+    "max": 15
+   },
+   "after": [
+    "B6"
+   ],
+   "done": "Deep brown crust. Go to the probe.",
+   "full": [
+    "Take the patties out of the fridge now.",
+    "Season unless the pack says they are seasoned.",
+    "Let the first side brown before you turn."
+   ]
+  },
+  {
+   "id": "B8",
+   "dish": "burger",
+   "title": "Cheese on, then probe",
+   "line": "Cheese, then onions on top. Lid on 1–2 min. Probe each patty from the side.",
+   "chips": [
+    "75°C for 30 s",
+    "or 70°C for 2 min"
+   ],
+   "scene": {
+    "use": "probe"
+   },
+   "needs": [
+    {
+     "item": "onions",
+     "state": "caramelised",
+     "from": "B6"
+    },
+    {
+     "item": "cheese",
+     "state": "sliced",
+     "from": "B4"
+    }
+   ],
+   "resource": [
+    "hob",
+    "frying pan"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "B7",
+    "B4",
+    "B6"
+   ],
+   "check": {
+    "cue": "75°C at the centre for 30 s, or 70°C for 2 min. Every patty.",
+    "food": "burger patty",
+    "fallback": 2,
+    "pass": "75°C held",
+    "fail": "Under 75°C"
+   },
+   "done": "Each patty at 75°C for 30 s.",
+   "also": [
+    "onions"
+   ]
+  },
+  {
+   "id": "B9",
+   "dish": "burger",
+   "title": "Rest the patties, toast the buns",
+   "line": "Patties to a plate. Dab the pan. Buns cut side down until golden.",
+   "chips": [
+    "5 g butter",
+    "2–3 min"
+   ],
+   "scene": {
+    "use": "buns"
+   },
+   "needs": [
+    {
+     "item": "buns",
+     "qty": "2",
+     "from": "B4"
+    },
+    {
+     "item": "butter",
+     "qty": "5 g",
+     "from": "B0"
+    }
+   ],
+   "resource": [
+    "hob",
+    "frying pan"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "B8"
+   ],
+   "done": "Golden buns, rested patties."
+  },
+  {
+   "id": "B10",
+   "dish": "burger",
+   "title": "Build and eat",
+   "line": "Bun, sauce, cheesy patty with onions, pickles, bun.",
+   "scene": {
+    "use": "build"
+   },
+   "hands": "active",
+   "duration": {
+    "typ": 2
+   },
+   "after": [
+    "B9",
+    "B3",
+    "B5"
+   ],
+   "hold": {
+    "max": 0
+   },
+   "done": "Eat straight away.",
+   "also": [
+    "onions",
+    "chips"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "name": "Turner & George",
+   "url": "https://www.turnerandgeorge.co.uk/",
+   "use": "the patties (London butcher)"
+  },
+  {
+   "name": "Method written in a ChatGPT conversation",
+   "use": "for this pan. Re-planned here: order, timing and checks"
+  },
+  {
+   "name": "Food Standards Agency",
+   "url": "https://www.food.gov.uk/safety-hygiene/cooking-your-food",
+   "use": "burger temperature"
+  }
+ ],
+ "changes": [
+  {
+   "what": "Buns toasted after the patties, not before",
+   "why": "Buns toasted first sit for 15+ minutes and go cold. The patties rest while the buns toast in the same pan."
+  },
+  {
+   "what": "Onions rewarm on top of the cheese, under the lid",
+   "why": "They finish well before the patties. The lid melts the cheese and rewarms them in the same 1–2 minutes."
+  },
+  {
+   "what": "Total time is about an hour, not 45 minutes",
+   "why": "One pan does onions, then patties, then buns, in turn."
+  },
+  {
+   "what": "Chips timed back from the burgers",
+   "why": "The page tells you when to put them in, so they finish together."
+  },
+  {
+   "what": "Probe, not colour",
+   "why": "Minced beef must reach 75°C for 30 s, or 70°C for 2 min, at the centre. Crust colour does not tell you."
+  }
+ ]
+}

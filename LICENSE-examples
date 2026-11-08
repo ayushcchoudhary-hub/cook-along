@@ -1,0 +1,17 @@
+The example plans (skills/cook-along/examples/*/plan.json), the built example
+pages, and the drawings in skills/cook-along/assets/ are licensed under the
+Creative Commons Attribution 4.0 International licence (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/
+
+Credit: Ayush Choudhary, cook-along.
+
+The example recipes are re-planned from these sources. The steps are rewritten.
+No source text is copied.
+- Salmon traybake: the sheet-pan method from Basics with Babish, "Weeknight Meals" (2018).
+  https://www.youtube.com/watch?v=zQm9Bk2bA_Q
+- Lamb dinner: a recipe written in a ChatGPT conversation.
+- Burgers: patties from Turner & George, a London butcher. The method was written
+  in a ChatGPT conversation.
+
+The safety rules in references/safety.json summarise UK Food Standards Agency guidance.
+https://www.food.gov.uk/safety-hygiene/cooking-your-food

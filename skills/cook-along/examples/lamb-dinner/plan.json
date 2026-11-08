@@ -1,0 +1,917 @@
+{
+ "schema": 1,
+ "title": "Slow-roast lamb shoulder, mash and green beans",
+ "slug": "lamb-dinner",
+ "serves": "2–3",
+ "summary": "A long, quiet roast. The potatoes and beans get prepped during it, so the last 45 minutes stay calm.",
+ "eat_at": "19:30",
+ "kitchen": {
+  "hobs": 4,
+  "ovens": 1,
+  "oven_type": "fan"
+ },
+ "dishes": [
+  {
+   "id": "lamb",
+   "name": "Lamb"
+  },
+  {
+   "id": "mash",
+   "name": "Mash"
+  },
+  {
+   "id": "beans",
+   "name": "Beans"
+  },
+  {
+   "id": "sauce",
+   "name": "Sauce"
+  }
+ ],
+ "ingredients": [
+  {
+   "key": "lamb shoulder",
+   "dish": "lamb",
+   "item": "bone-in lamb shoulder",
+   "qty": "1.2–1.5 kg"
+  },
+  {
+   "key": "onion",
+   "dish": "lamb",
+   "item": "large onion",
+   "qty": "1"
+  },
+  {
+   "key": "garlic",
+   "dish": "lamb",
+   "item": "large garlic cloves",
+   "qty": "6"
+  },
+  {
+   "key": "rosemary",
+   "dish": "lamb",
+   "item": "rosemary sprigs",
+   "qty": "3"
+  },
+  {
+   "key": "olive oil",
+   "dish": "lamb",
+   "item": "olive oil",
+   "qty": "1 tbsp"
+  },
+  {
+   "key": "stock",
+   "dish": "sauce",
+   "item": "low-salt chicken stock",
+   "qty": "300 ml"
+  },
+  {
+   "key": "lemon",
+   "dish": "sauce",
+   "item": "lemon",
+   "qty": "1"
+  },
+  {
+   "key": "potatoes",
+   "dish": "mash",
+   "item": "floury potatoes (about 2–3 large)",
+   "qty": "600 g"
+  },
+  {
+   "key": "butter",
+   "dish": "mash",
+   "item": "butter (40 g mash, 10 g beans)",
+   "qty": "50 g"
+  },
+  {
+   "key": "milk",
+   "dish": "mash",
+   "item": "milk",
+   "qty": "125 ml"
+  },
+  {
+   "key": "green beans",
+   "dish": "beans",
+   "item": "green beans",
+   "qty": "200–250 g"
+  },
+  {
+   "key": "salt and pepper",
+   "dish": "lamb",
+   "item": "fine salt and black pepper",
+   "qty": "to taste"
+  }
+ ],
+ "equipment": [
+  "Foil roasting tray, 7–8 cm deep",
+  "Baking sheet",
+  "Foil",
+  "2 saucepans",
+  "Small pan",
+  "Colander",
+  "Sieve and jug",
+  "Masher",
+  "Kettle"
+ ],
+ "steps": [
+  {
+   "id": "L0",
+   "dish": "lamb",
+   "title": "Get everything out",
+   "line": "Lamb, veg and stock by the board. Measure the stock.",
+   "chips": [
+    "300 ml stock"
+   ],
+   "scene": {
+    "use": "prepL"
+   },
+   "hands": "active",
+   "duration": {
+    "typ": 5
+   },
+   "done": "Everything within reach.",
+   "needs": [
+    {
+     "item": "lamb shoulder",
+     "qty": "1.2–1.5 kg"
+    },
+    {
+     "item": "onion",
+     "qty": "1 large"
+    },
+    {
+     "item": "garlic",
+     "qty": "6 cloves"
+    },
+    {
+     "item": "rosemary",
+     "qty": "3 sprigs"
+    },
+    {
+     "item": "olive oil",
+     "qty": "1 tbsp"
+    },
+    {
+     "item": "stock",
+     "qty": "300 ml"
+    },
+    {
+     "item": "potatoes",
+     "qty": "600 g"
+    },
+    {
+     "item": "green beans",
+     "qty": "200–250 g"
+    },
+    {
+     "item": "butter",
+     "qty": "50 g"
+    },
+    {
+     "item": "milk",
+     "qty": "125 ml"
+    },
+    {
+     "item": "lemon",
+     "qty": "1"
+    },
+    {
+     "item": "salt and pepper",
+     "qty": "to taste"
+    }
+   ]
+  },
+  {
+   "id": "L1",
+   "dish": "lamb",
+   "title": "Oven on, tray on its sheet",
+   "line": "It heats while you prep. Always lift the foil tray by the sheet.",
+   "chips": [
+    "170°C conventional",
+    "150°C fan"
+   ],
+   "scene": {
+    "use": "oven"
+   },
+   "resource": [
+    "oven@150fan"
+   ],
+   "hands": "passive",
+   "duration": {
+    "typ": 15
+   },
+   "after": [
+    "L0"
+   ],
+   "done": "Oven light off: it is hot."
+  },
+  {
+   "id": "L2",
+   "dish": "lamb",
+   "title": "Onion into 8 thick wedges",
+   "line": "Chunky, not sliced. They hold the lamb up.",
+   "chips": [
+    "1 large onion"
+   ],
+   "scene": {
+    "use": "wedges"
+   },
+   "needs": [
+    {
+     "item": "onion",
+     "qty": "1 large",
+     "from": "L0"
+    }
+   ],
+   "produces": [
+    "onion wedges"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "L0"
+   ],
+   "done": "8 wedges."
+  },
+  {
+   "id": "L3",
+   "dish": "lamb",
+   "title": "Garlic and rosemary",
+   "line": "Crush 3 cloves, keep 3 whole. Chop 2 sprigs, keep 1 whole.",
+   "chips": [
+    "6 cloves",
+    "3 sprigs"
+   ],
+   "scene": {
+    "use": "garlic"
+   },
+   "needs": [
+    {
+     "item": "garlic",
+     "qty": "6 cloves",
+     "from": "L0"
+    },
+    {
+     "item": "rosemary",
+     "qty": "3 sprigs",
+     "from": "L0"
+    }
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 5
+   },
+   "after": [
+    "L0"
+   ],
+   "done": "Two piles: for the rub, for the tray."
+  },
+  {
+   "id": "L4",
+   "dish": "lamb",
+   "title": "Rub the lamb",
+   "line": "Oil, crushed garlic, rosemary, salt, pepper. All over. No searing.",
+   "chips": [
+    "1 tbsp oil",
+    "about 1 tsp salt"
+   ],
+   "scene": {
+    "use": "rub"
+   },
+   "needs": [
+    {
+     "item": "lamb shoulder",
+     "qty": "1.2–1.5 kg",
+     "from": "L0"
+    },
+    {
+     "item": "olive oil",
+     "qty": "1 tbsp",
+     "from": "L0"
+    }
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 5
+   },
+   "after": [
+    "L3"
+   ],
+   "done": "Coated all over. Wash your hands.",
+   "hold": {
+    "max": 30,
+    "how": "in the fridge"
+   }
+  },
+  {
+   "id": "L5",
+   "dish": "lamb",
+   "title": "Build the tray",
+   "line": "Onions, garlic and sprig in. Lamb on top, fat up. Stock around it, not over.",
+   "chips": [
+    "300 ml stock"
+   ],
+   "scene": {
+    "use": "assemble"
+   },
+   "needs": [
+    {
+     "item": "onion wedges",
+     "state": "cut",
+     "from": "L2"
+    },
+    {
+     "item": "stock",
+     "qty": "300 ml",
+     "from": "L0"
+    }
+   ],
+   "resource": [
+    "foil tray"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "L2",
+    "L4"
+   ],
+   "done": "Lamb sits on the onions, above the stock."
+  },
+  {
+   "id": "L6",
+   "dish": "lamb",
+   "title": "Seal with two layers of foil",
+   "line": "Crimp hard round the rim, twice.",
+   "chips": [
+    "2 sheets"
+   ],
+   "scene": {
+    "use": "foil"
+   },
+   "resource": [
+    "foil tray"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "L5"
+   ],
+   "done": "Press round the rim. No gaps."
+  },
+  {
+   "id": "L7",
+   "dish": "lamb",
+   "title": "Roast covered",
+   "line": "Middle shelf, on its sheet. Leave it alone.",
+   "chips": [
+    "4 h 30 min",
+    "150°C fan",
+    "170°C conventional"
+   ],
+   "scene": {
+    "use": "ovenIn"
+   },
+   "resource": [
+    "oven@150fan",
+    "foil tray"
+   ],
+   "hands": "passive",
+   "duration": {
+    "typ": 270
+   },
+   "after": [
+    "L6",
+    "L1"
+   ],
+   "done": "Timer ends. Check tenderness.",
+   "full": [
+    "Check early only if you smell burning or see a leak.",
+    "Oven hotter, or eating sooner? At 160°C fan, check at about 3 h."
+   ]
+  },
+  {
+   "id": "L7a",
+   "dish": "mash",
+   "title": "Get ahead: potatoes and beans",
+   "line": "Peel and chunk the potatoes into cold water, off the heat. Trim the beans.",
+   "chips": [
+    "600 g potatoes",
+    "3 cm chunks",
+    "200–250 g beans"
+   ],
+   "scene": {
+    "use": "ahead"
+   },
+   "needs": [
+    {
+     "item": "potatoes",
+     "qty": "600 g",
+     "from": "L0"
+    },
+    {
+     "item": "green beans",
+     "qty": "200–250 g",
+     "from": "L0"
+    },
+    {
+     "item": "butter",
+     "qty": "40 g + 10 g",
+     "from": "L0"
+    },
+    {
+     "item": "milk",
+     "qty": "125 ml",
+     "from": "L0"
+    }
+   ],
+   "produces": [
+    "potato chunks in water",
+    "trimmed beans"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 15
+   },
+   "after": [
+    "L0"
+   ],
+   "ahead": true,
+   "hold": {
+    "max": 180,
+    "how": "in cold water, off the heat"
+   },
+   "done": "Potatoes under cold water. Beans trimmed, back in the fridge.",
+   "full": [
+    "600 g is about 2–3 large potatoes, not a whole bag.",
+    "Weigh 40 g butter for the mash and 10 g for the beans. Measure 125 ml milk."
+   ]
+  },
+  {
+   "id": "L8",
+   "dish": "lamb",
+   "title": "Tenderness check",
+   "line": "Peel back one foil corner, away from your face. Twist a fork in the thickest part.",
+   "chips": [
+    "Fork turns easily"
+   ],
+   "scene": {
+    "use": "fork"
+   },
+   "resource": [
+    "foil tray"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 2
+   },
+   "after": [
+    "L7"
+   ],
+   "check": {
+    "cue": "The fork turns easily and the meat pulls apart.",
+    "fallback": 30,
+    "pass": "Tender",
+    "fail": "Still firm"
+   },
+   "done": "Fork turns easily.",
+   "full": [
+    "Still firm? Reseal the corner and give it 30 more minutes, then check again."
+   ],
+   "hold": {
+    "max": 5,
+    "how": "on the counter"
+   }
+  },
+  {
+   "id": "L9",
+   "dish": "lamb",
+   "title": "Foil off, oven up",
+   "line": "Keep the foil for resting. Spoon some juice over. Back in, uncovered.",
+   "chips": [
+    "200°C conventional",
+    "180°C fan"
+   ],
+   "scene": {
+    "kind": "oven",
+    "temps": [
+     200,
+     180
+    ],
+    "inside": [
+     {
+      "part": "lamb",
+      "state": {
+       "cooked": true
+      }
+     }
+    ],
+    "tags": [
+     "Foil off"
+    ]
+   },
+   "resource": [
+    "oven@180fan",
+    "foil tray"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "L8"
+   ],
+   "done": "Lamb back in, uncovered."
+  },
+  {
+   "id": "L9b",
+   "dish": "lamb",
+   "title": "Brown the lamb",
+   "line": "Until deep golden. Splash of water if the tray runs dry.",
+   "chips": [
+    "15–25 min"
+   ],
+   "scene": {
+    "use": "brown"
+   },
+   "resource": [
+    "oven@180fan",
+    "foil tray"
+   ],
+   "hands": "passive",
+   "duration": {
+    "min": 15,
+    "typ": 20,
+    "max": 25
+   },
+   "after": [
+    "L9"
+   ],
+   "check": {
+    "cue": "Deep golden all over.",
+    "fallback": 5,
+    "pass": "Golden",
+    "fail": "Pale"
+   },
+   "done": "Deep golden all over."
+  },
+  {
+   "id": "L10",
+   "dish": "mash",
+   "title": "Potatoes on to boil",
+   "line": "Only after the lamb passed its check. Water 2 cm over the top, salted.",
+   "chips": [
+    "about 1 tsp salt"
+   ],
+   "scene": {
+    "use": "potOn"
+   },
+   "needs": [
+    {
+     "item": "potato chunks in water",
+     "state": "peeled",
+     "from": "L7a"
+    },
+    {
+     "item": "salt and pepper",
+     "qty": "about 1 tsp salt",
+     "from": "L0"
+    }
+   ],
+   "resource": [
+    "hob",
+    "saucepan"
+   ],
+   "hands": "passive",
+   "duration": {
+    "typ": 10
+   },
+   "after": [
+    "L8",
+    "L7a"
+   ],
+   "done": "Rolling boil across the whole pan."
+  },
+  {
+   "id": "L11",
+   "dish": "mash",
+   "title": "Simmer the potatoes",
+   "line": "Steady simmer until a knife slides in.",
+   "chips": [
+    "15–20 min"
+   ],
+   "scene": {
+    "use": "simmer"
+   },
+   "resource": [
+    "hob",
+    "saucepan"
+   ],
+   "hands": "passive",
+   "duration": {
+    "min": 15,
+    "typ": 18,
+    "max": 20
+   },
+   "after": [
+    "L10"
+   ],
+   "check": {
+    "cue": "A knife slides in with no resistance.",
+    "fallback": 5,
+    "pass": "Soft",
+    "fail": "Firm"
+   },
+   "done": "Knife slides in."
+  },
+  {
+   "id": "L12",
+   "dish": "lamb",
+   "title": "Lamb out to rest",
+   "line": "Onto a platter under the saved foil. Onions to a dish. Juices stay in the tray. Oven off.",
+   "chips": [
+    "Rest 20–30 min"
+   ],
+   "scene": {
+    "use": "rest"
+   },
+   "resource": [
+    "foil tray"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "L9b"
+   ],
+   "done": "Lamb resting, loosely covered.",
+   "full": [
+    "Put the plates in the switched-off oven to warm."
+   ]
+  },
+  {
+   "id": "L12r",
+   "dish": "lamb",
+   "title": "Lamb rests",
+   "line": "Mash, sauce and beans happen now.",
+   "chips": [
+    "20–30 min"
+   ],
+   "scene": {
+    "kind": "wait",
+    "where": "counter",
+    "inside": [
+     {
+      "part": "lamb",
+      "state": {
+       "cooked": true
+      }
+     }
+    ],
+    "time": "20 min",
+    "timeLabel": "rest"
+   },
+   "hands": "passive",
+   "duration": {
+    "min": 20,
+    "typ": 20,
+    "max": 30
+   },
+   "after": [
+    "L12"
+   ],
+   "hold": {
+    "max": 10,
+    "how": "under foil"
+   },
+   "done": "20 minutes have passed."
+  },
+  {
+   "id": "L13",
+   "dish": "mash",
+   "title": "Drain. Warm the milk in the same pan.",
+   "line": "Potatoes steam-dry 2 min in the colander. Milk warms in the empty pan.",
+   "chips": [
+    "125 ml milk"
+   ],
+   "scene": {
+    "use": "drain"
+   },
+   "needs": [
+    {
+     "item": "milk",
+     "qty": "125 ml",
+     "from": "L0"
+    }
+   ],
+   "resource": [
+    "hob",
+    "saucepan",
+    "colander"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "L11"
+   ],
+   "done": "Dry potatoes, steaming milk in a mug."
+  },
+  {
+   "id": "L14",
+   "dish": "mash",
+   "title": "Mash",
+   "line": "Butter first, then warm milk a splash at a time. Season. Lid on.",
+   "chips": [
+    "40 g butter",
+    "75–125 ml milk"
+   ],
+   "scene": {
+    "use": "mash"
+   },
+   "resource": [
+    "saucepan"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 5
+   },
+   "after": [
+    "L13"
+   ],
+   "hold": {
+    "max": 20,
+    "how": "lid on, off the heat"
+   },
+   "done": "Smooth. Seasoned. Lid on."
+  },
+  {
+   "id": "L15",
+   "dish": "sauce",
+   "title": "Make the sauce",
+   "line": "Kettle on. Zest the lemon first. Juices through a sieve, skim the fat, heat and taste.",
+   "chips": [
+    "Zest before you cut"
+   ],
+   "scene": {
+    "use": "sauce"
+   },
+   "needs": [
+    {
+     "item": "lemon",
+     "qty": "1",
+     "from": "L0"
+    }
+   ],
+   "resource": [
+    "hob",
+    "small pan",
+    "kettle"
+   ],
+   "hands": "active",
+   "duration": {
+    "min": 5,
+    "typ": 8,
+    "max": 10
+   },
+   "after": [
+    "L12"
+   ],
+   "hold": {
+    "max": 15,
+    "how": "on the lowest heat"
+   },
+   "done": "Tastes good to you. Lowest heat.",
+   "full": [
+    "Do not lift the hot foil tray to pour. Spoon or ladle the juices into the sieve.",
+    "Watery: simmer it. Too salty: a little water. Flat: a squeeze of lemon."
+   ]
+  },
+  {
+   "id": "L16",
+   "dish": "beans",
+   "title": "Cook the green beans",
+   "line": "Into the boiled kettle water. Drain. Butter, lemon zest, a squeeze.",
+   "chips": [
+    "4–6 min",
+    "10 g butter"
+   ],
+   "scene": {
+    "use": "beans"
+   },
+   "needs": [
+    {
+     "item": "trimmed beans",
+     "state": "trimmed",
+     "from": "L7a"
+    }
+   ],
+   "resource": [
+    "hob",
+    "second saucepan",
+    "colander"
+   ],
+   "hands": "active",
+   "duration": {
+    "min": 4,
+    "typ": 6,
+    "max": 6
+   },
+   "after": [
+    "L15",
+    "L7a"
+   ],
+   "hold": {
+    "max": 3
+   },
+   "done": "Bright green, with a little bite."
+  },
+  {
+   "id": "L17",
+   "dish": "lamb",
+   "title": "Serve",
+   "line": "Pull the lamb into chunks with two forks. Plate with mash, beans and onions. Sauce over.",
+   "chips": [
+    "Bones out"
+   ],
+   "scene": {
+    "use": "serveL"
+   },
+   "hands": "active",
+   "duration": {
+    "typ": 5
+   },
+   "after": [
+    "L12r",
+    "L14",
+    "L15",
+    "L16"
+   ],
+   "hold": {
+    "max": 0
+   },
+   "done": "Eat. Leftovers in the fridge within 2 hours.",
+   "also": [
+    "mash",
+    "beans",
+    "sauce"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "name": "Recipe written in a ChatGPT conversation",
+   "use": "the dish and method. Re-planned here: order, timing and the missing steps"
+  },
+  {
+   "name": "Food Standards Agency",
+   "url": "https://www.food.gov.uk/safety-hygiene/cooking-your-food",
+   "use": "safety checks"
+  }
+ ],
+ "changes": [
+  {
+   "what": "Added a step to warm the milk",
+   "why": "The recipe asked for warm milk but never warmed it. It warms in the drained potato pan. No extra pan."
+  },
+  {
+   "what": "Potatoes and beans prepped during the roast",
+   "why": "They wait in cold water, off the heat. The pan only goes on after the lamb passes its check. This removes about 15 minutes of rush at the end."
+  },
+  {
+   "what": "Check tenderness through one foil corner",
+   "why": "Resealing one corner is quick and keeps the seal tight."
+  },
+  {
+   "what": "Keep the browning foil for the resting lamb",
+   "why": "Saves foil and a step."
+  },
+  {
+   "what": "Do not lift the hot foil tray to pour",
+   "why": "A full, hot foil tray bends and spills. Ladle the juices instead."
+  },
+  {
+   "what": "Zest the lemon before you cut it",
+   "why": "You cannot zest a cut lemon easily."
+  },
+  {
+   "what": "Kettle on when the sauce starts",
+   "why": "The bean water is ready fast, so the beans cook last and go out hot."
+  },
+  {
+   "what": "Amounts at the first step that touches the food",
+   "why": "The potato amount used to appear only at the boil step."
+  },
+  {
+   "what": "Suggested salt for the potato water",
+   "why": "The recipe said 'add salt' with no amount. About 1 tsp is a suggestion."
+  }
+ ]
+}

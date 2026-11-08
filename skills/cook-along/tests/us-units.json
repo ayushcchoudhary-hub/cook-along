@@ -1,0 +1,757 @@
+{
+ "schema": 1,
+ "title": "Salmon, potato and asparagus traybake",
+ "slug": "salmon-traybake",
+ "serves": 2,
+ "summary": "One hot tray, one oven. Potatoes go first, then salmon and asparagus join them for the last 15 minutes.",
+ "eat_at": "19:30",
+ "kitchen": {
+  "hobs": 4,
+  "ovens": 1,
+  "oven_type": "fan"
+ },
+ "dishes": [
+  {
+   "id": "salmon",
+   "name": "Salmon"
+  },
+  {
+   "id": "pot",
+   "name": "Potatoes"
+  },
+  {
+   "id": "asp",
+   "name": "Asparagus"
+  }
+ ],
+ "ingredients": [
+  {
+   "key": "baby potatoes",
+   "dish": "pot",
+   "item": "baby potatoes",
+   "qty": "500 g",
+   "label": "suggested"
+  },
+  {
+   "key": "asparagus",
+   "dish": "asp",
+   "item": "asparagus",
+   "qty": "1 bunch (about 250 g)",
+   "label": "suggested"
+  },
+  {
+   "key": "salmon",
+   "dish": "salmon",
+   "item": "salmon fillets, skin on",
+   "qty": "2 × 140 g",
+   "label": "suggested"
+  },
+  {
+   "key": "garlic",
+   "dish": "salmon",
+   "item": "garlic clove",
+   "qty": "1",
+   "label": "suggested"
+  },
+  {
+   "key": "lemon",
+   "dish": "salmon",
+   "item": "lemon, juiced",
+   "qty": "1"
+  },
+  {
+   "key": "dijon",
+   "dish": "salmon",
+   "item": "Dijon mustard",
+   "qty": "1 tsp"
+  },
+  {
+   "key": "olive oil",
+   "dish": "salmon",
+   "item": "olive oil",
+   "qty": "about 5 tbsp",
+   "label": "suggested",
+   "note": "for the dressing and the veg"
+  },
+  {
+   "key": "salt and pepper",
+   "dish": "salmon",
+   "item": "salt and black pepper",
+   "qty": "to taste"
+  },
+  {
+   "key": "parsley",
+   "dish": "salmon",
+   "item": "parsley, chopped (optional)",
+   "qty": "a small handful"
+  }
+ ],
+ "equipment": [
+  "Large baking tray",
+  "Chopping board and knife",
+  "Small bowl",
+  "Mixing bowl",
+  "Oven gloves",
+  "Foil (in case one part needs longer)"
+ ],
+ "steps": [
+  {
+   "id": "S0",
+   "dish": "salmon",
+   "title": "Get everything out",
+   "line": "Everything for the tray in one place.",
+   "scene": {
+    "kind": "flatlay",
+    "items": [
+     {
+      "part": "baby_potato",
+      "label": "500 g baby\npotatoes"
+     },
+     {
+      "part": "asparagus",
+      "label": "250 g\nasparagus"
+     },
+     {
+      "part": "salmon",
+      "label": "2 salmon\nfillets"
+     },
+     {
+      "part": "garlic",
+      "label": "1 garlic\nclove"
+     },
+     {
+      "part": "lemon",
+      "label": "1 lemon"
+     },
+     {
+      "part": "mustard",
+      "label": "1 tsp\nDijon"
+     },
+     {
+      "part": "oil",
+      "label": "Olive oil"
+     },
+     {
+      "part": "parsley",
+      "label": "Parsley"
+     }
+    ]
+   },
+   "needs": [
+    {
+     "item": "baby potatoes",
+     "qty": "500 g"
+    },
+    {
+     "item": "asparagus",
+     "qty": "250 g"
+    },
+    {
+     "item": "salmon",
+     "qty": "2 fillets"
+    },
+    {
+     "item": "garlic",
+     "qty": "1 clove"
+    },
+    {
+     "item": "lemon",
+     "qty": "1"
+    },
+    {
+     "item": "dijon",
+     "qty": "1 tsp"
+    },
+    {
+     "item": "olive oil",
+     "qty": "5 tbsp"
+    },
+    {
+     "item": "salt and pepper",
+     "qty": "to taste"
+    },
+    {
+     "item": "parsley",
+     "qty": "a handful"
+    }
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "done": "Everything is on the counter."
+  },
+  {
+   "id": "P1",
+   "dish": "pot",
+   "title": "Oven on, empty tray in",
+   "line": "Heat to 400°F with the skillet inside.",
+   "chips": [
+    "200°C conventional",
+    "180°C fan"
+   ],
+   "scene": {
+    "kind": "oven",
+    "temps": [
+     200,
+     180
+    ],
+    "inside": [
+     {
+      "part": "tray"
+     }
+    ],
+    "tags": [
+     "Empty tray in"
+    ]
+   },
+   "resource": [
+    "oven@180fan",
+    "tray"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 1
+   },
+   "after": [
+    "S0"
+   ],
+   "done": "Oven on, tray inside."
+  },
+  {
+   "id": "P2",
+   "dish": "pot",
+   "title": "Tray heats",
+   "line": "The tray needs a full 20 minutes to get hot.",
+   "scene": {
+    "kind": "wait",
+    "time": "20 min",
+    "timeLabel": "tray heats"
+   },
+   "resource": [
+    "oven@180fan",
+    "tray"
+   ],
+   "hands": "passive",
+   "duration": {
+    "typ": 20
+   },
+   "after": [
+    "P1"
+   ],
+   "done": "20 minutes have passed."
+  },
+  {
+   "id": "P3",
+   "dish": "pot",
+   "title": "Halve and oil the potatoes",
+   "line": "Toss with oil, salt and pepper.",
+   "chips": [
+    "500 g",
+    "1 tbsp oil"
+   ],
+   "scene": {
+    "kind": "chop",
+    "part": "baby_potato",
+    "cut": "halve",
+    "tags": [
+     "Cut in half",
+     "Oil, salt, pepper"
+    ],
+    "scale": 3,
+    "pile": 8,
+    "pileScale": 1.4
+   },
+   "needs": [
+    {
+     "item": "baby potatoes",
+     "qty": "500 g",
+     "from": "S0"
+    }
+   ],
+   "produces": [
+    "oiled potato halves"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 5
+   },
+   "after": [
+    "S0"
+   ],
+   "ahead": true,
+   "hold": {
+    "max": 60,
+    "how": "in the bowl"
+   },
+   "done": "Every potato is cut and coated."
+  },
+  {
+   "id": "P4",
+   "dish": "pot",
+   "title": "Potatoes onto the hot tray",
+   "line": "Cut side down. Use oven gloves, the tray is very hot.",
+   "chips": [
+    "Cut side down"
+   ],
+   "scene": {
+    "kind": "tray",
+    "hot": true,
+    "add": [
+     {
+      "part": "baby_potato",
+      "n": 12,
+      "state": {
+       "cut": true
+      }
+     }
+    ],
+    "tags": [
+     "Cut side down"
+    ]
+   },
+   "needs": [
+    {
+     "item": "oiled potato halves",
+     "state": "oiled",
+     "from": "P3"
+    }
+   ],
+   "resource": [
+    "oven@180fan",
+    "tray"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 2
+   },
+   "after": [
+    "P2",
+    "P3"
+   ],
+   "done": "All potatoes cut side down, tray back in."
+  },
+  {
+   "id": "P5",
+   "dish": "pot",
+   "title": "Potatoes roast",
+   "line": "They get a head start. Prep the rest now.",
+   "scene": {
+    "kind": "wait",
+    "time": "25 min",
+    "timeLabel": "potatoes roast",
+    "inside": [
+     {
+      "part": "baby_potato",
+      "n": 10,
+      "state": {
+       "cut": true,
+       "cooked": true
+      }
+     }
+    ]
+   },
+   "resource": [
+    "oven@180fan",
+    "tray"
+   ],
+   "hands": "passive",
+   "duration": {
+    "typ": 25
+   },
+   "after": [
+    "P4"
+   ],
+   "done": "Undersides golden."
+  },
+  {
+   "id": "A1",
+   "dish": "asp",
+   "title": "Trim and oil the asparagus",
+   "line": "Cut off the woody ends. Toss with oil, salt and pepper.",
+   "chips": [
+    "250 g",
+    "1 tbsp oil"
+   ],
+   "scene": {
+    "kind": "chop",
+    "part": "asparagus",
+    "cut": "trim",
+    "tags": [
+     "Cut off woody ends",
+     "Oil, salt, pepper"
+    ]
+   },
+   "needs": [
+    {
+     "item": "asparagus",
+     "qty": "250 g",
+     "from": "S0"
+    }
+   ],
+   "produces": [
+    "oiled asparagus"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 4
+   },
+   "after": [
+    "S0"
+   ],
+   "ahead": true,
+   "hold": {
+    "max": 60,
+    "how": "on a plate"
+   },
+   "done": "Ends trimmed, spears coated."
+  },
+  {
+   "id": "D1",
+   "dish": "salmon",
+   "title": "Mix the dressing",
+   "line": "Whisk it, then keep 1 tbsp aside in a small dish before it touches the fish.",
+   "chips": [
+    "1 garlic clove",
+    "1 lemon",
+    "1 tsp Dijon",
+    "3 tbsp oil"
+   ],
+   "scene": {
+    "kind": "bowl",
+    "add": [
+     {
+      "part": "garlic"
+     },
+     {
+      "part": "lemon"
+     },
+     {
+      "part": "mustard"
+     },
+     {
+      "part": "oil"
+     }
+    ],
+    "list": [
+     "1 garlic clove, crushed",
+     "Juice of 1 lemon",
+     "1 tsp Dijon",
+     "3 tbsp olive oil"
+    ],
+    "color": "#e6c66a",
+    "tags": [
+     "Keep 1 tbsp aside"
+    ]
+   },
+   "needs": [
+    {
+     "item": "garlic",
+     "qty": "1 clove",
+     "from": "S0"
+    },
+    {
+     "item": "lemon",
+     "qty": "1",
+     "from": "S0"
+    },
+    {
+     "item": "dijon",
+     "qty": "1 tsp",
+     "from": "S0"
+    },
+    {
+     "item": "olive oil",
+     "qty": "3 tbsp",
+     "from": "S0"
+    }
+   ],
+   "produces": [
+    "dressing"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 4
+   },
+   "after": [
+    "S0"
+   ],
+   "ahead": true,
+   "hold": {
+    "max": 120,
+    "how": "covered"
+   },
+   "done": "Smooth and glossy, 1 tbsp set aside."
+  },
+  {
+   "id": "S2",
+   "dish": "salmon",
+   "title": "Check for bones, coat the salmon",
+   "line": "Run a finger along each fillet, then coat in dressing.",
+   "chips": [
+    "2 fillets"
+   ],
+   "scene": {
+    "kind": "board",
+    "part": "salmon",
+    "n": 2,
+    "action": "coat",
+    "tags": [
+     "Feel for bones",
+     "Coat in dressing"
+    ]
+   },
+   "needs": [
+    {
+     "item": "salmon",
+     "qty": "2 fillets",
+     "from": "S0"
+    },
+    {
+     "item": "dressing",
+     "state": "mixed",
+     "from": "D1"
+    }
+   ],
+   "produces": [
+    "coated salmon"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "D1"
+   ],
+   "hold": {
+    "max": 30,
+    "how": "in the fridge"
+   },
+   "done": "No bones felt, both fillets coated."
+  },
+  {
+   "id": "S3",
+   "dish": "salmon",
+   "title": "Push potatoes aside, add salmon and asparagus",
+   "line": "Potatoes to one side. Salmon and asparagus in the space.",
+   "chips": [
+    "Skin side down"
+   ],
+   "scene": {
+    "kind": "tray",
+    "hot": true,
+    "push": "left",
+    "have": [
+     {
+      "part": "baby_potato",
+      "n": 10,
+      "state": {
+       "cut": true,
+       "cooked": true
+      }
+     }
+    ],
+    "add": [
+     {
+      "part": "salmon",
+      "n": 2,
+      "slot": "mid",
+      "state": {
+       "coated": true
+      }
+     },
+     {
+      "part": "asparagus",
+      "n": 8,
+      "slot": "right"
+     }
+    ],
+    "tags": [
+     "Potatoes to one side"
+    ]
+   },
+   "needs": [
+    {
+     "item": "potatoes",
+     "state": "half-roasted",
+     "from": "P5"
+    },
+    {
+     "item": "coated salmon",
+     "state": "coated",
+     "from": "S2"
+    },
+    {
+     "item": "oiled asparagus",
+     "state": "oiled",
+     "from": "A1"
+    }
+   ],
+   "resource": [
+    "oven@180fan",
+    "tray"
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "P5",
+    "S2",
+    "A1"
+   ],
+   "done": "Everything on the tray, tray back in."
+  },
+  {
+   "id": "S4",
+   "dish": "salmon",
+   "title": "Roast until the salmon flakes",
+   "line": "Press the thickest part with a fork. It should be opaque and flake.",
+   "chips": [
+    "12–18 min"
+   ],
+   "scene": {
+    "kind": "tray",
+    "oven": true,
+    "done": true,
+    "have": [
+     {
+      "part": "baby_potato",
+      "n": 10,
+      "slot": "left",
+      "state": {
+       "cut": true,
+       "cooked": true
+      }
+     },
+     {
+      "part": "salmon",
+      "n": 2,
+      "slot": "mid",
+      "state": {
+       "coated": true,
+       "cooked": true
+      }
+     },
+     {
+      "part": "asparagus",
+      "n": 8,
+      "slot": "right",
+      "state": {
+       "cooked": true
+      }
+     }
+    ],
+    "tags": [
+     "Opaque",
+     "Flakes easily"
+    ]
+   },
+   "resource": [
+    "oven@180fan",
+    "tray"
+   ],
+   "hands": "passive",
+   "duration": {
+    "min": 12,
+    "typ": 15,
+    "max": 18
+   },
+   "after": [
+    "S3"
+   ],
+   "check": {
+    "cue": "Salmon is opaque all through and flakes at the thickest part.",
+    "fallback": 3,
+    "food": "salmon",
+    "pass": "Flakes",
+    "fail": "Still glassy"
+   },
+   "full": [
+    "Check at 12 minutes.",
+    "If the asparagus is done first, lift it onto a plate and cover with foil.",
+    "If the salmon is still glassy in the centre, give it 3 more minutes."
+   ],
+   "done": "Salmon opaque and flaking, potatoes golden, asparagus tender."
+  },
+  {
+   "id": "S5",
+   "dish": "salmon",
+   "title": "Plate up",
+   "line": "Spoon the clean dressing over. Parsley if you like.",
+   "chips": [
+    "1 tbsp dressing"
+   ],
+   "scene": {
+    "kind": "plate",
+    "items": [
+     {
+      "part": "baby_potato",
+      "n": 3,
+      "state": {
+       "cut": true
+      }
+     },
+     {
+      "part": "salmon",
+      "n": 1
+     },
+     {
+      "part": "asparagus",
+      "n": 4
+     }
+    ],
+    "tags": [
+     "Parsley, if you like"
+    ]
+   },
+   "needs": [
+    {
+     "item": "parsley",
+     "qty": "a handful",
+     "from": "S0"
+    }
+   ],
+   "hands": "active",
+   "duration": {
+    "typ": 3
+   },
+   "after": [
+    "S4"
+   ],
+   "hold": {
+    "max": 0
+   },
+   "done": "On plates."
+  }
+ ],
+ "sources": [
+  {
+   "name": "Basics with Babish, “Weeknight Meals” (2018)",
+   "url": "https://www.youtube.com/watch?v=zQm9Bk2bA_Q",
+   "use": "the sheet-pan method and timings. Steps rewritten, amounts added"
+  },
+  {
+   "name": "Babish recipe page",
+   "url": "https://babi.sh/recipes/weeknightmeals-ahmph"
+  }
+ ],
+ "changes": [
+  {
+   "what": "Salmon is cooked until it is opaque and flakes",
+   "why": "The video takes it out at 125°F (52°C), which leaves the centre translucent. UK guidance for fish is opaque and flaking. If you like it rarer, that is your call, but not for anyone pregnant, elderly, very young or unwell."
+  },
+  {
+   "what": "Amounts added",
+   "why": "The video gives few amounts. The ones marked 'suggested' are for 2 people."
+  },
+  {
+   "what": "1 tbsp of dressing kept clean",
+   "why": "Set aside before the raw fish goes in, so you can spoon it over at the table safely."
+  },
+  {
+   "what": "Oven in °C",
+   "why": "400°F is 200°C conventional or 180°C fan."
+  }
+ ]
+}

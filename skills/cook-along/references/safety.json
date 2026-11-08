@@ -1,0 +1,145 @@
+{
+ "_source": "UK Food Standards Agency (FSA) consumer and caterer guidance, checked 8 Nov 2026. https://www.food.gov.uk/safety-hygiene/cooking-your-food",
+ "rules": {
+  "mince": {
+   "foods": [
+    "burger",
+    "patty",
+    "mince",
+    "minced",
+    "meatball",
+    "sausage",
+    "kebab",
+    "fish cake"
+   ],
+   "probe": [
+    [
+     70,
+     120
+    ],
+    [
+     75,
+     30
+    ]
+   ],
+   "text": "70°C for 2 min, or 75°C for 30 s, at the centre"
+  },
+  "poultry": {
+   "foods": [
+    "chicken",
+    "turkey",
+    "duck",
+    "poultry"
+   ],
+   "probe": [
+    [
+     70,
+     120
+    ],
+    [
+     75,
+     30
+    ]
+   ],
+   "text": "70°C for 2 min, or 75°C for 30 s. No pink meat, juices run clear"
+  },
+  "pork": {
+   "foods": [
+    "pork",
+    "gammon"
+   ],
+   "probe": [
+    [
+     70,
+     120
+    ],
+    [
+     75,
+     30
+    ]
+   ],
+   "text": "70°C for 2 min, or 75°C for 30 s. No pink meat"
+  },
+  "rolled": {
+   "foods": [
+    "rolled joint",
+    "stuffed joint"
+   ],
+   "probe": [
+    [
+     70,
+     120
+    ],
+    [
+     75,
+     30
+    ]
+   ],
+   "text": "Rolled joints must be cooked all the way through"
+  },
+  "whole_red": {
+   "foods": [
+    "lamb",
+    "beef",
+    "steak",
+    "venison"
+   ],
+   "probe": null,
+   "text": "Whole cuts of beef and lamb can be cooked to preference once all outside surfaces are cooked"
+  },
+  "fish": {
+   "foods": [
+    "salmon",
+    "cod",
+    "haddock",
+    "fish",
+    "trout",
+    "prawn",
+    "seafood"
+   ],
+   "probe": null,
+   "text": "Cook until the flesh turns opaque and flakes easily. Cook it fully if you serve someone pregnant, elderly, very young or with a weak immune system"
+  },
+  "leftovers": {
+   "foods": [
+    "leftover",
+    "reheat"
+   ],
+   "probe": [
+    [
+     75,
+     30
+    ]
+   ],
+   "text": "Cool and refrigerate within 2 hours. Eat within 2 days. Reheat once, until steaming hot all through"
+  },
+  "rice": {
+   "foods": [
+    "rice"
+   ],
+   "probe": null,
+   "text": "Cooked rice: serve it hot. Cool leftovers within 1 hour, keep them in the fridge, eat within 1 day and reheat only once"
+  },
+  "raw_mix": {
+   "foods": [
+    "raw egg",
+    "batter",
+    "cake mix",
+    "cookie dough",
+    "raw flour"
+   ],
+   "probe": null,
+   "text": "Do not taste raw batter or dough. Raw flour and raw egg can carry harmful bacteria"
+  },
+  "hot_hold": {
+   "foods": [
+    "keep warm",
+    "keeps warm",
+    "warm oven",
+    "low oven"
+   ],
+   "probe": null,
+   "text": "Food kept warm should stay steaming hot (63°C or above) and be eaten within 2 hours"
+  }
+ }
+}

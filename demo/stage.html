@@ -1,0 +1,84 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+:root{--paper:#FCFCFA;--paper-2:#F2F2EE;--ink:#15171C;--ink-2:#464B55;--accent:#C4291F;--ok:#1E7D45}
+*{box-sizing:border-box}
+html,body{margin:0;width:1600px;height:1100px;overflow:hidden;background:var(--paper-2);font-family:Inter,sans-serif}
+.shot{position:absolute;inset:0;opacity:0}
+.cap{position:absolute;left:0;right:0;top:56px;text-align:center;font:800 64px/1.1 Inter,sans-serif;color:var(--ink);letter-spacing:-.01em}
+.cap .w{display:inline-block;opacity:0;transform:translateY(14px)}
+.cap .a{color:var(--accent)}
+.card{background:var(--ink);color:#fff}
+.card .big{position:absolute;left:120px;right:120px;top:360px;text-align:center;font:800 104px/1.08 Inter,sans-serif;letter-spacing:-.02em}
+.card .big .a{color:#FF6A5E}
+.card .small{position:absolute;left:0;right:0;top:250px;text-align:center;font:600 34px Inter,sans-serif;color:#B6BAC1;letter-spacing:.06em;text-transform:uppercase}
+.card .foot{position:absolute;left:0;right:0;bottom:150px;text-align:center;font:500 38px/1.4 Inter,sans-serif;color:#B6BAC1}
+.card .foot b{color:#fff}
+.win{position:absolute;left:50%;top:210px;width:1240px;height:820px;margin-left:-620px;background:var(--paper);border-radius:28px;box-shadow:0 24px 60px rgba(20,25,40,.18),0 0 0 1px rgba(20,25,40,.08);overflow:hidden}
+.term{background:#15171C;color:#E6E6E1;font:500 25px/1.45 'IBM Plex Mono','DejaVu Sans Mono',monospace;white-space:pre}.term .tin{position:absolute;left:0;top:0;padding:40px 46px;transform-origin:0 0}
+.term .dim{color:#80858E}.term .ok{color:#5BC787}.term .hi{color:#fff;font-weight:700}
+.phone{position:absolute;left:50%;top:210px;width:880px;height:860px;margin-left:-440px;border-radius:36px;overflow:hidden;background:var(--paper);box-shadow:0 24px 60px rgba(20,25,40,.18),0 0 0 1px rgba(20,25,40,.08)}
+.phone iframe{position:absolute;left:0;top:0;width:390px;height:844px;border:0;transform-origin:0 0;transform:scale(2.2564)}
+.ring{position:absolute;border:7px solid var(--accent);border-radius:18px;opacity:0;pointer-events:none;box-shadow:0 0 0 6px rgba(196,41,31,.15)}
+.tap{position:absolute;width:90px;height:90px;margin:-45px 0 0 -45px;border-radius:50%;background:rgba(21,23,28,.28);border:4px solid rgba(255,255,255,.9);opacity:0}
+</style></head>
+<body>
+<div class="shot card" id="s1"><div class="small">What you tell your agent</div><div class="big">“You decide.<br>We eat at <span class="a">19:30</span>.”</div></div>
+<div class="shot" id="s2"><div class="cap" data-words="It plans|backwards|from|dinner" data-accent="1"></div><div class="win term" id="term"></div><div class="ring" id="r2a"></div><div class="ring" id="r2b"></div></div>
+<div class="shot" id="s3"><div class="cap" data-words="Every|step|is|a|picture" data-accent="4"></div><div class="phone"><iframe id="f3"></iframe></div><div class="ring" id="r3"></div></div>
+<div class="shot" id="s4"><div class="cap" data-words="Every|dish,|by|the|clock" data-accent="4"></div><div class="phone"><iframe id="f4"></iframe></div><div class="ring" id="r4"></div></div>
+<div class="shot" id="s5"><div class="cap" data-words="Not|ready?|It|re-plans" data-accent="3"></div><div class="phone"><iframe id="f5"></iframe></div><div class="ring" id="r5"></div><div class="tap" id="tap5"></div></div>
+<div class="shot card" id="s6"><div class="small">cook-along · an agent skill</div><div class="big">“You decide.”<br><span class="a">It plans. You cook.</span></div><div class="foot">Recipe in, one page out: the order, the timers, a picture per step.<br><b>github.com/ayushcchoudhary-hub/cook-along</b></div></div>
+<script>
+const BPM=128,BAR=4*60/BPM;
+/* one timeline object: every shot and event, in seconds. The music step can read this. */
+const TL={bpm:BPM,shots:[
+ {id:'s1',from:0,bars:2},
+ {id:'s2',from:2*BAR,bars:2,events:{zoom:2*BAR+.8,ringA:2*BAR+1.4,pan:2*BAR+2.1,ringB:2*BAR+2.7}},
+ {id:'s3',from:4*BAR,bars:3,events:{ring:4*BAR+2.2}},
+ {id:'s4',from:7*BAR,bars:2,events:{ring:7*BAR+1.4}},
+ {id:'s5',from:9*BAR,bars:2,events:{tap:9*BAR+1.1,toast:9*BAR+1.25,ring:9*BAR+1.6}},
+ {id:'s6',from:11*BAR,bars:2}],total:13*BAR};
+window.TL=TL;
+const S=2.2564;
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+const seg=(t,a,b)=>Math.max(0,Math.min(1,(t-a)/(b-a)));
+document.querySelectorAll('.cap').forEach(c=>{const acc=+c.dataset.accent;c.innerHTML=c.dataset.words.split('|').map((w,i)=>`<span class="w${i===acc?' a':''}">${w}</span>`).join(' ');});
+const TERM=`<span class="dim">$ python3 scripts/plan.py examples/salmon-traybake/plan.json --eat 19:30</span>
+Salmon, potato and asparagus traybake  serves 2
+  <span class="hi" id="tStart">start 18:18  eat 19:30</span>  total 72 min  hands-on 28 min
+  no rings used
+  busiest: from 18:53, 10 of 15 min hands-on
+  check: If Roast until the salmon flakes fails: +3 min. Nothing else has to wait.
+  18:18  S0    salmon   hands Get everything out
+  18:21  P1    pot      hands Oven on, empty tray in
+  18:22  P2    pot      <span class="dim">wait</span>  Tray heats
+  18:37  P3    pot      hands Halve and oil the potatoes
+  18:42  P4    pot      hands Potatoes onto the hot tray
+  18:44  P5    pot      <span class="dim">wait</span>  Potatoes roast
+  18:53  D1    salmon   hands Mix the dressing
+  19:02  A1    asp      hands Trim and oil the asparagus
+  19:06  S2    salmon   hands Check for bones, coat the salmon
+  19:09  S3    salmon   hands Push potatoes aside, add salmon and asparagus
+  19:12  S4    salmon   <span class="dim">wait</span>  Roast until the salmon flakes
+  19:27  S5    salmon   hands Plate up
+<span class="ok" id="tOk">  0 errors, 0 warnings, 0 notes</span>`;
+document.getElementById('term').innerHTML='<div class="tin" id="tin">'+TERM+'</div>';
+const TIN=document.getElementById('tin');const tr0=TIN.getBoundingClientRect();const fpt=id=>{const r=document.getElementById(id).getBoundingClientRect();return[r.left-tr0.left+r.width/2,r.top-tr0.top+r.height/2,r.left-tr0.left];};const FA=fpt('tStart'),FB=fpt('tOk');
+function ringAt(el,rect,a){el.style.left=rect.x+'px';el.style.top=rect.y+'px';el.style.width=rect.w+'px';el.style.height=rect.h+'px';el.style.opacity=a;el.style.transform=`scale(${1.12-.12*ease(Math.min(1,a))})`;}
+function rectIn(id,pad){const r=document.getElementById(id).getBoundingClientRect();return{x:r.left-pad,y:r.top-pad,w:r.width+2*pad,h:r.height+2*pad};}
+function rectFrame(fid,sel,pad){const f=document.getElementById(fid);const el=f.contentDocument.querySelector(sel);if(!el)return null;const r=el.getBoundingClientRect();const fr=f.parentElement.getBoundingClientRect();return{x:fr.left+r.left*S-pad,y:fr.top+r.top*S-pad,w:r.width*S+2*pad,h:r.height*S+2*pad};}
+window.SETUP={};
+window.frameAt=function(t){
+ TL.shots.forEach(sh=>{const el=document.getElementById(sh.id);const end=sh.from+sh.bars*BAR;el.style.opacity=(t>=sh.from&&t<end)?1:0;
+  if(t>=sh.from&&t<end){const lt=t-sh.from;el.querySelectorAll('.cap .w').forEach((w,i)=>{const p=ease(seg(lt,.1+i*.16,.4+i*.16));w.style.opacity=p;w.style.transform=`translateY(${(1-p)*14}px)`;});
+   const big=el.querySelector('.big');if(big){const p=ease(seg(lt,.05,.5));big.style.opacity=p;big.style.transform=`translateY(${(1-p)*20}px)`;}
+   const ft=el.querySelector('.foot');if(ft){const p=ease(seg(lt,.9,1.4));ft.style.opacity=p;}}});
+ const e2=TL.shots[1].events;{const z=ease(seg(t,e2.zoom,e2.zoom+.5)),pn=ease(seg(t,e2.pan,e2.pan+.5));const sc=1+.9*z;const W=1240,H=820;
+  const fx=FA[2]+300+(FB[2]+260-(FA[2]+300))*pn,fy=FA[1]+(FB[1]-FA[1])*pn;const cx=W*.5,cy=H*.5;
+  const tx=(cx-fx*sc)*z,ty=(cy-fy*sc)*z;TIN.style.transform=`translate(${tx}px,${ty}px) scale(${sc})`;}
+ringAt(document.getElementById('r2a'),rectIn('tStart',10),seg(t,e2.ringA,e2.ringA+.3)*(1-seg(t,e2.pan,e2.pan+.2))*(t<TL.shots[2].from?1:0));
+ ringAt(document.getElementById('r2b'),rectIn('tOk',10),seg(t,e2.ringB,e2.ringB+.3)*(t<TL.shots[2].from?1:0));
+};
+</script>
+</body></html>
