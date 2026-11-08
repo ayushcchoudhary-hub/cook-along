@@ -21,8 +21,10 @@ HERE = Path(__file__).resolve().parent
 SAFETY = json.loads((HERE.parent / "references" / "safety.json").read_text())["rules"]
 CATALOG = json.loads((HERE.parent / "assets" / "catalog.json").read_text())
 
+SHAPES = ["round", "oval", "long", "flat", "cube", "mound", "pile", "strands", "leafy", "bunch", "wedge", "liquid"]
+
 BAD_UNITS = re.compile(
-    r"(°\s*F\b|\bfahrenheit\b|\bcups?\b|\boz\b|\blbs?\b|\bounces?\b|\bpounds?\b|(\b\d+(/\d+)?|½|\bhalf an?|\bone|\btwo)\s+sticks?\b|\bsticks? of butter\b|\bquarts?\b|\bpints?\b"
+    r"(°\s*F\b|\bfahrenheit\b|(\d+(/\d+)?|½|¼|¾|⅓|⅔|\bhalf an?|\bone|\btwo|\bthree)\s*cups?\b|\bcups? of (flour|sugar|milk|water|rice|cheese|butter|oil|stock|cream)\b|\boz\b|\blbs?\b|\bounces?\b|\bpounds?\b|(\b\d+(/\d+)?|½|\bhalf an?|\bone|\btwo)\s+sticks?\b|\bsticks? of butter\b|\bquarts?\b|\bpints?\b"
     r"|\binch(es)?\b|\d+\s*[x×]\s*\d+\s*(in\b|\")|\b9\s*[x×]\s*13\b|\bskillet\b|\bbroil|\bstovetop\b|\bzucchini\b|\bcilantro\b|\bscallions?\b|\beggplant\b|\barugula\b"
     r"|\ball-purpose\b|\bkosher salt\b|\bheavy cream\b|\bhalf-and-half\b|\bconfectioners\b|\bbaking soda\b|\bground beef\b|\bpackage directions\b|\bsharp cheddar\b)", re.I)
 
@@ -387,6 +389,8 @@ class Plan:
             if self.dur(s) >= 3 and not (s.get("done") or s.get("check")):
                 self.issue("warn", i, "No 'done when' cue. Say how the cook knows it is finished.")
         # 5. scenes exist
+        custom = {k.lower().strip(): v for k, v in self.d.get("parts", {}).items()}
+        missing = {}
         for i, s in self.steps.items():
             sc = s.get("scene", {})
             if "use" in sc and sc["use"] not in CATALOG["library"]:
@@ -394,8 +398,17 @@ class Plan:
             if "kind" in sc and sc["kind"] not in CATALOG["kinds"]:
                 self.issue("warn", i, f"Scene kind '{sc['kind']}' is unknown. The page will draw a fallback card.")
             for part in self._parts(sc):
-                if part not in CATALOG["parts"]:
-                    self.issue("info", i, f"No drawing for '{part}'. The page will show a labelled card for it.")
+                if str(part).lower() not in CATALOG["parts"] and str(part).lower() not in custom:
+                    missing.setdefault(str(part), []).append(i)
+        for part, where in missing.items():
+            self.issue("warn", None, f"No drawing for '{part}' ({', '.join(dict.fromkeys(where))}). Look it up (an image search for \"{part}\") "
+                       f"and add it to \"parts\" with a shape and colours. See scene-rules.md. Otherwise it shows as a labelled card.")
+        for name, sp in custom.items():
+            if sp.get("shape") not in SHAPES:
+                self.issue("error", None, f"Part '{name}': shape must be one of {', '.join(SHAPES)}.")
+            for k in ("color", "color2", "spots", "cooked", "cooked2"):
+                if k in sp and not re.fullmatch(r"#[0-9a-fA-F]{6}", str(sp[k])):
+                    self.issue("error", None, f"Part '{name}': {k} must be a colour like #c9a774.")
         # 6. safety
         alltext = " ".join(json.dumps(s).lower() for s in self.steps.values()) + " " + self.d.get("title", "").lower()
         cats = [k for k, r in SAFETY.items() if any(re.search(r"\b" + re.escape(f) + r"s?\b", alltext) for f in r["foods"])]

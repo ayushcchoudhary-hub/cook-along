@@ -21,8 +21,12 @@ So the skill splits the work:
 
 1. **The agent writes a plan** (`plan.json`): every step with what it needs and makes, hands-on or waiting, which ring, pan or oven setting, how long, how long the result keeps, and how you know it is done.
 2. **A scheduler checks it** (`scripts/plan.py`). It places each step as late as it can, slides prep into quiet moments, and flags what a person misses: a step that needs warm milk when nothing warms the milk, beans that would wait 5 minutes but keep for 3, two oven temperatures at once, a burger probed below 75°C, cups and °F.
-3. **A fixed renderer builds the page** (`scripts/build.py`). The agent never writes drawing code, so every page looks right and works offline.
+3. **A fixed renderer builds the page** (`scripts/build.py`). The agent never writes drawing code, so every page looks right. The page is one file with its fonts inside it: it works offline and calls no other site.
 4. **The agent looks at its work** (`scripts/check.py`): a contact sheet of every picture, plus phone and desktop screenshots.
+
+## The drawings
+
+Every picture is drawn in code, in a paper cut-out style. No images come from the web. The kit has 74 foods and tools across many cuisines: proteins, veg, rice, pasta, noodles, flatbreads, pulses, dairy and the cupboard. For a food the kit lacks, the agent looks it up (an image search) and describes it in the plan: a shape such as `long` or `mound`, and two colours. The page draws it from that.
 
 ## Install
 
@@ -51,7 +55,7 @@ Each folder has the plan and the built page. Open `index.html` in a browser.
 
 ## How it was tested
 
-Fresh agents used only the skill's own docs to plan 9 recipes it had never seen: banana bread, chicken stir-fry, beef chilli for 6, a US mac and cheese written in cups and °F, pork dumplings on 2 rings, a Sunday roast chicken and a Thai green curry. Each one reported what was unclear or broken. Those reports drove the checks, the drawings and the docs. `tests/run.sh` keeps the checker honest: broken plans it must fail, and the examples it must pass.
+Fresh agents used only the skill's own docs to plan recipes it had never seen: banana bread, chicken stir-fry, beef chilli for 6, a US mac and cheese written in cups and °F, pork dumplings on 2 rings, a Sunday roast chicken, a Thai green curry, bibimbap and shakshuka. Each one reported what was unclear or broken. Those reports drove the checks, the drawings and the docs. `tests/run.sh` keeps the checker honest: broken plans it must fail, and the examples it must pass.
 
 ## What it will not do
 
@@ -76,4 +80,4 @@ demo/                    the script that films the demo from the real example pa
 
 ## Licence
 
-Code: MIT (see LICENSE). Example plans and drawings: CC BY 4.0 (see LICENSE-examples).
+Code: MIT (see LICENSE). Example plans and drawings: CC BY 4.0 (see LICENSE-examples). Fonts: SIL Open Font License 1.1 (see `skills/cook-along/assets/fonts`): Libre Caslon Display, Source Serif 4, IBM Plex Sans Condensed, IBM Plex Mono, Atkinson Hyperlegible and Bricolage Grotesque.

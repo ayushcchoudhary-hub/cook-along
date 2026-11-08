@@ -23,6 +23,32 @@ def script_safe(text):
     return text.replace("</", "<\\/").replace("<!--", "<\\!--")
 
 
+FONT_FAMILIES = {
+    "libre-caslon-display": "Libre Caslon Display",
+    "source-serif-4": "Source Serif 4",
+    "ibm-plex-sans-condensed": "IBM Plex Sans Condensed",
+    "ibm-plex-mono": "IBM Plex Mono",
+    "atkinson-hyperlegible": "Atkinson Hyperlegible",
+    "bricolage-grotesque": "Bricolage Grotesque",
+}
+
+
+def font_css():
+    """The fonts live in assets/fonts (SIL Open Font License). They go into the page as data,
+    so it works offline and makes no request to a font service."""
+    import base64
+    import re
+    rules = []
+    for f in sorted((ASSETS / "fonts").glob("*.woff2")):
+        m = re.match(r"(.+)-latin-(\d+)-(normal|italic)\.woff2$", f.name)
+        if not m or m.group(1) not in FONT_FAMILIES:
+            continue
+        data = base64.b64encode(f.read_bytes()).decode()
+        rules.append(f"@font-face{{font-family:'{FONT_FAMILIES[m.group(1)]}';font-style:{m.group(3)};font-weight:{m.group(2)};"
+                     f"font-display:swap;src:url(data:font/woff2;base64,{data}) format('woff2')}}")
+    return "<style>/* Fonts: SIL Open Font License 1.1, see assets/fonts */\n" + "\n".join(rules) + "</style>"
+
+
 def build(plan_data, eat=None, hobs=None):
     out = Plan(plan_data, hobs=hobs, eat=eat).run()
     tpl = (ASSETS / "template.html").read_text()
@@ -32,7 +58,7 @@ def build(plan_data, eat=None, hobs=None):
     plan_json = script_safe(json.dumps(out, ensure_ascii=False, separators=(",", ":")))
     # replace placeholders one at a time, so text inside the plan can never be read as a placeholder
     head, rest = tpl.split("{{PLAN_JSON}}", 1)
-    head = head.replace("{{TITLE}}", title)
+    head = head.replace("{{TITLE}}", title).replace("{{FONTS}}", font_css())
     for name, js in (("engine", engine), ("page", page)):
         if "</script" in js.lower():
             raise SystemExit(f"The {name} script contains '</script'. Split that string.")

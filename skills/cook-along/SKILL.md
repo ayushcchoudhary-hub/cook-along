@@ -52,6 +52,8 @@ Then read the printed order **as the cook**. Ask: is anything on the heat before
 ### 5. Choose pictures (references/scene-rules.md)
 Every step gets one picture. Use a generic `kind` (tray, pan, pot, chop, board, bowl, oven, wait, probe, plate, flatlay) with the right `part`s. The facts go in the picture: amounts on tags, temperatures on the card. Text stays to one line plus chips.
 
+If the checker says a food has no drawing, look it up: find what it looks like (an image if your tools show you one, or a written description and the colour table), then give it a shape and two colours in the plan's `parts`. Do this for every main ingredient. The details are in references/scene-rules.md.
+
 ### 6. Show the person the plan before you build
 In chat: the start time, the order in one short list, and the `changes` you made to the source. Ask only if a change is a real judgement call. If they are not there, build.
 

@@ -140,6 +140,25 @@
    ],
    "probe": null,
    "text": "Food kept warm should stay steaming hot (63°C or above) and be eaten within 2 hours"
+  },
+  "eggs": {
+   "foods": [
+    "egg",
+    "runny yolk",
+    "fried egg",
+    "poached egg",
+    "soft-boiled"
+   ],
+   "probe": null,
+   "text": "Runny eggs are fine for most people, including when pregnant, if they are British Lion eggs (red lion stamp). Without the stamp, cook eggs for anyone vulnerable until the white and yolk are firm"
+  },
+  "sprouts": {
+   "foods": [
+    "bean sprout",
+    "beansprout"
+   ],
+   "probe": null,
+   "text": "Cook bean sprouts until steaming hot all the way through, unless the pack says they are ready to eat"
   }
  }
 }

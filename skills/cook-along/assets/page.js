@@ -5,6 +5,7 @@ const PLAN=JSON.parse(document.getElementById('plan').textContent);
 const C=PLAN._computed||{steps:{}};
 const SAFE=PLAN._safety||{};
 const app=document.getElementById('app');
+if(typeof registerParts==='function')registerParts(PLAN.parts);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const slugId=x=>String(x).toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const KEY='cook-along:'+(PLAN.slug||'recipe')+':';
@@ -119,7 +120,7 @@ const reelcv=document.getElementById('reelcv'),rc=prep(reelcv,PW,PH,1);let reelO
 const reelScenes=STEPS.map(s=>sceneOf(s.scene,s.title));let reelIdx=-1;
 function drawReel(){const i=Math.min(STEPS.length-1,Math.floor(reelT/SEG)),f=(reelT-i*SEG)/SEG;const sc=reelScenes[i];safeDraw(rc,sc,reduce?keyT(sc):Math.min(sc.loop-.5,f*(sc.loop-.5)));
  rc.save();rc.fillStyle='#C4291F';rc.fillRect(0,PH-4,PW*(reelT/TOTAL),4);rc.restore();
- if(reelIdx!==i){reelIdx=i;document.getElementById('reelcap').textContent=`${i} · ${STEPS[i].title}`;document.getElementById('reelpos').textContent=`Step ${i} of ${STEPS.length-1}`;}document.querySelectorAll('#sboard button').forEach((b,k)=>b.classList.toggle('on',k===i));}
+ if(reelIdx!==i){reelIdx=i;document.getElementById('reelcap').textContent=`${i} · ${STEPS[i].title}`;document.getElementById('reelpos').textContent=`Picture ${i+1} of ${STEPS.length}`;}document.querySelectorAll('#sboard button').forEach((b,k)=>b.classList.toggle('on',k===i));}
 document.getElementById('reelplay').onclick=e=>{reelOn=!reelOn;e.target.textContent=reelOn?'Pause':'Play';};
 document.getElementById('reelgo').onclick=()=>go(STEPS[Math.min(STEPS.length-1,Math.floor(reelT/SEG))].id);
 function frame(now){const dt=Math.min(.1,(now-last)/1000);last=now;FACES=true;

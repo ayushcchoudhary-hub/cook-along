@@ -20,6 +20,7 @@ See `examples/salmon-traybake/plan.json` for a short, complete plan.
 | `steps` | list | See below. Any order. The scheduler sets the times. |
 | `sources` | list | `[{"name", "url"?, "use"?}]`. Name every source honestly. `use` says what you took from it. |
 | `changes` | list | `[{"what", "why"}]`. Every change from the source: added steps, new order, new amounts, safety fixes, unit changes. |
+| `parts` | object | Optional. Drawings for foods the kit lacks, after you look them up: `{"okra": {"shape": "long", "color": "#4f8a2c", "color2": "#8fc46a"}}`. See scene-rules.md. |
 
 ### ingredients[]
 
