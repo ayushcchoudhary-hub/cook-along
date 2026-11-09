@@ -10,6 +10,7 @@ from playwright.sync_api import sync_playwright
 
 HERE = Path(__file__).resolve().parent
 FPS = 30
+CHECK = "S4"
 CLOCK = r"""
 (()=>{ if(!location.pathname.endsWith('salmon.html')) return;
  let t=0; const base=new Date('2026-11-08T19:00:00').getTime();
@@ -43,9 +44,41 @@ SETUP = {
 }
 
 
+def prepare():
+    """Fill the stage from a real run: the person's message, the agent's reply, the plan.py printout and the page."""
+    import html, json, re
+    cfg = json.loads((HERE / "config.json").read_text())
+    shutil.copy(Path(cfg["page"]).expanduser(), HERE / "salmon.html")
+    out = Path(cfg["plan_output"]).read_text().rstrip("\n").split("\n")
+    lines = ['<span class="dim">$ python3 scripts/plan.py plan.json --eat 19:30</span>']
+    for l in out:
+        e = html.escape(l)
+        if l.strip().startswith("start "):
+            m = re.match(r"(\s*)(start \S+  eat \S+)(.*)", e)
+            e = f'{m.group(1)}<span class="hi" id="tStart">{m.group(2)}</span>{m.group(3)}'
+        elif "errors," in l:
+            e = f'<span class="ok" id="tOk">{e}</span>'
+        else:
+            e = re.sub(r"(\s)wait(\s|$)", r'\1<span class="dim">wait</span>\2', e)
+        lines.append(e)
+    reply = html.escape(Path(cfg["reply"]).read_text().strip())
+    key = html.escape(cfg["key_phrase"])
+    assert key in reply, "key_phrase must appear in the reply"
+    reply = reply.replace(key, f'<span id="key">{key}</span>', 1)
+    reply = "".join(f"<p>{para.strip()}</p>" for para in reply.split("\n\n") if para.strip()).replace("\n", "<br>")
+    st = (HERE / "stage.html").read_text()
+    st = st.replace("{{TERM}}", "\n".join(lines).replace("`", "\\`")).replace("{{USER}}", html.escape(cfg["user"])).replace("{{REPLY}}", reply)
+    (HERE / "stage-run.html").write_text(st)
+    SETUP["f3"] = ("now=18:00", "#reelcv", 38, cfg["reel_index"] * 4500 + 150)
+    SETUP["f4"] = ("now=" + cfg["now_board"], "#now h2", 34, 400)
+    SETUP["f5"] = ("now=" + cfg["now_check"], f"#s-{cfg['check_step']} .line", 70, 400)
+    return cfg
+
+
 def main():
-    # film the real example page
-    shutil.copy(HERE.parent / "skills/cook-along/examples/salmon-traybake/index.html", HERE / "salmon.html")
+    cfg = prepare()
+    global CHECK
+    CHECK = cfg["check_step"]
     ap = argparse.ArgumentParser()
     ap.add_argument("--only")
     ap.add_argument("--stills", action="store_true")
@@ -57,7 +90,7 @@ def main():
         ctx = b.new_context(viewport={"width": 1600, "height": 1100}, device_scale_factor=1)
         ctx.add_init_script(CLOCK)
         pg = ctx.new_page()
-        pg.goto("http://127.0.0.1:8765/stage.html")
+        pg.goto("http://127.0.0.1:8765/stage-run.html")
         for fid, (hsh, sel, off, pre) in SETUP.items():
             pg.evaluate(f"""async()=>{{const f=document.getElementById('{fid}');f.style.height='381px';
               f.src='salmon.html#{hsh}';await new Promise(r=>f.onload=r);}}""")
@@ -108,7 +141,7 @@ def drive(pg, sh, t, bar, jump=False):
     if sh["id"] == "s5":
         ev = sh["events"]
         pg.evaluate(f"""()=>{{const t={t};const f=document.getElementById('f5');const w=f.contentWindow;const d=w.document;
-          const btn=d.querySelector('.step [data-fail="S4"]');const tap=document.getElementById('tap5');
+          const btn=d.querySelector('.step [data-fail="{CHECK}"]');const tap=document.getElementById('tap5');
           const r=btn.getBoundingClientRect(),fr=f.parentElement.getBoundingClientRect(),S=2.2564;
           tap.style.left=(fr.left+(r.left+r.width/2)*S)+'px';tap.style.top=(fr.top+(r.top+r.height/2)*S)+'px';
           const p=Math.max(0,Math.min(1,(t-{ev['tap']}+.25)/.25)),q=Math.max(0,Math.min(1,(t-{ev['tap']})/.35));

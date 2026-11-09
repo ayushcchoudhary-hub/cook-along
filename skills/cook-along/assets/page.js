@@ -11,7 +11,10 @@ const slugId=x=>String(x).toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const KEY='cook-along:'+(PLAN.slug||'recipe')+':';
 const LS={get(k,d){try{const v=localStorage.getItem(KEY+k);return v==null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(KEY+k,JSON.stringify(v));}catch(e){}}};
 const toMin=s=>{const p=String(s||'19:30').split(':').map(Number);return p[0]*60+(p[1]||0);};
-const fmt=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');};
+const fmt24=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');};
+/* Clock times read like people say them: 6:18 pm. A plan can ask for 24-hour time with kitchen.clock = "24h". */
+const H24=((PLAN.kitchen||{}).clock==='24h');
+const fmt=m=>{if(H24)return fmt24(m);m=((Math.round(m)%1440)+1440)%1440;const h=Math.floor(m/60),mm=m%60;return (h%12||12)+':'+String(mm).padStart(2,'0')+'\u202f'+(h<12?'am':'pm');};
 const fmtDur=m=>{m=Math.round(m);if(m<60)return m+' min';const h=Math.floor(m/60),r=m%60;return h+' h'+(r?' '+r+' min':'');};
 const typ=s=>{const d=s.duration;return typeof d==='number'?d:(d&&(d.typ||d.min))||1;};
 const durText=s=>{const d=s.duration;if(typeof d==='number'||!d)return fmtDur(typ(s));if(d.min&&d.max&&d.min!==d.max)return d.max<60?`${d.min}–${d.max} min`:`${fmtDur(d.min)} to ${fmtDur(d.max)}`;return fmtDur(d.typ||d.min);};
@@ -49,7 +52,7 @@ function header(){const k=`Serves ${esc(PLAN.serves)} · ${fmtDur(C.total_min||0
  return `<div class="topbar"><div class="kick">${k}</div><div class="seg" id="theme" role="group" aria-label="Theme"><button type="button" data-t="light" aria-pressed="true">Light</button><button type="button" data-t="dark" aria-pressed="false">Dark</button></div></div>
  <h1>${esc(PLAN.title)}</h1><p class="dek">${esc(PLAN.summary||'')}</p><div class="planbar" id="planbar"></div>`;}
 function planbar(){const first=clockStart(STEPS[0].id),sh=totalShift();const busy=C.busiest||{};
- return `<label for="eatat">Eat at</label><input type="time" id="eatat" value="${fmt(eatNow())}"><button class="btn" type="button" id="startnow">Start now</button>
+ return `<label for="eatat">Eat at</label><input type="time" id="eatat" value="${fmt24(eatNow())}"><button class="btn" type="button" id="startnow">Start now</button>
  ${(C.oven||[]).length?`<div class="seg" role="group" aria-label="Oven type"><button type="button" data-oven="fan" aria-pressed="${oven==='fan'}">Fan oven</button><button type="button" data-oven="conv" aria-pressed="${oven==='conv'}">Conventional</button></div>`:''}
  <div class="sum">Start at <b>${fmt(first)}</b>. ${C.rings_used?`Uses <b>${esc(C.rings_used)}</b> of your <b>${esc((PLAN.kitchen||{}).hobs??4)}</b> rings${C.peak_pans&&C.peak_pans.count>1?`, <b>${esc(C.peak_pans.count)}</b> pans at once`:''}.`:(C.oven&&C.oven.length?'Oven only, no rings.':'')}${sh?` <b>Running ${sh} min late.</b> <button class="btn" type="button" id="resetshift">Reset</button>`:''}</div>`;}
 function reel(){return `<section class="unit" id="reel"><div class="un">The whole dinner</div><h2>Every step in about ${Math.round(STEPS.length*4.5/10)*10} seconds</h2>

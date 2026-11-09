@@ -4,3 +4,5 @@ __pycache__/
 demo/out/
 demo/salmon.html
 .DS_Store
+demo/stage-run.html
+demo/config.json

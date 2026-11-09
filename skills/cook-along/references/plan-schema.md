@@ -13,7 +13,7 @@ See `examples/salmon-traybake/plan.json` for a short, complete plan.
 | `serves` | number or string | `2`, or `"2–3"`. |
 | `summary` | string | One or two sentences on how the meal is organised. |
 | `eat_at` | "HH:MM" | Default eating time. The cook can change it on the page. |
-| `kitchen` | object | `{"hobs": 4, "ovens": 1, "oven_type": "fan"}`. `oven_type` is `fan` or `conv`. |
+| `kitchen` | object | `{"hobs": 4, "ovens": 1, "oven_type": "fan"}`. `oven_type` is `fan` or `conv`. The page shows times as "6:18 pm". Add `"clock": "24h"` for 18:18. |
 | `dishes` | list | `[{"id": "salmon", "name": "Salmon"}]`. Up to 6. Each gets a colour, a lane on the timeline and a row on the "now" board. |
 | `ingredients` | list | See below. |
 | `equipment` | list of strings | Every tool the cook needs to find. |

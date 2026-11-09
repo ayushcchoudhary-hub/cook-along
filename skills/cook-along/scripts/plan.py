@@ -587,20 +587,27 @@ class Plan:
 
 def report(out):
     c = out["_computed"]
+    h24 = (out.get("kitchen") or {}).get("clock") == "24h"
+    def hm(t):
+        """Clock time the way the page shows it: 6:18pm (or 18:18 with kitchen.clock = 24h)."""
+        if h24 or not t:
+            return t
+        h, m = map(int, t.split(":"))
+        return f"{h % 12 or 12}:{m:02d}{'am' if h < 12 else 'pm'}"
     print(f"{out.get('title')}  serves {out.get('serves')}")
-    print(f"  start {c['start_at']}  eat {c['eat_at']}  total {c['total_min']} min  hands-on {c['hands_on_min']} min")
+    print(f"  start {hm(c['start_at'])}  eat {hm(c['eat_at'])}  total {c['total_min']} min  hands-on {c['hands_on_min']} min")
     if c["rings_used"]:
         print(f"  rings used {c['rings_used']}  most pans at once {c['peak_pans']['count']} ({', '.join(c['peak_pans']['which'])})")
     else:
         print("  no rings used")
-    print(f"  busiest: from {c['busiest']['from']}, {c['busiest']['hands_on_of_15']} of 15 min hands-on")
+    print(f"  busiest: from {hm(c['busiest']['from'])}, {c['busiest']['hands_on_of_15']} of 15 min hands-on")
     for ci in c["check_impacts"]:
         print(f"  check: {ci['note']}")
     order = sorted(out["steps"], key=lambda s: c["steps"][s["id"]]["start"])
     for s in order:
         cs = c["steps"][s["id"]]
         ring = f" ring {cs['ring']}" if cs.get("ring") else ""
-        print(f"  {cs['clock']}  {s['id']:<5} {s.get('dish', ''):<8} {'hands' if s.get('hands', 'active') == 'active' else 'wait ':<5} {s['title']}{ring}")
+        print(f"  {hm(cs['clock']):>7}  {s['id']:<5} {s.get('dish', ''):<8} {'hands' if s.get('hands', 'active') == 'active' else 'wait ':<5} {s['title']}{ring}")
     lv = {"error": 0, "warn": 0, "info": 0}
     for it in c["issues"]:
         lv[it["level"]] += 1

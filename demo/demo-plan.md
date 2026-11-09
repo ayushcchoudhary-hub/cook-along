@@ -1,14 +1,14 @@
 # cook-along demo: plan
 
-128 BPM. 1 bar = 1.875 s. 13 bars = 24.4 s. 1600 × 1100, 30 fps, silent (music later).
+136 BPM. 1 bar = 1.76 s. 14 bars = 24.7 s. 1600 × 1100, 30 fps, silent (music later).
 
-| # | Time | Bars | Idea | On screen | Caption | Proof the camera lands on | Source |
-|---|---|---|---|---|---|---|---|
-| 1 | 0.0–3.75 | 2 | The ask | Beat card | "You decide. We eat at 19:30." | 19:30 in accent | The trigger in SKILL.md |
-| 2 | 3.75–7.5 | 2 | How it works | Real plan.py output for the salmon plan | It plans **backwards** from dinner | Ring on "start 18:18 eat 19:30", then "0 errors, 0 warnings" | `python3 scripts/plan.py examples/salmon-traybake/plan.json --eat 19:30` |
-| 3 | 7.5–13.1 | 3 | What it is | The built page, reel playing at step 9 | Every step is a **picture** | Ring on the reel caption "9 · Push potatoes aside..." | examples/salmon-traybake/index.html |
-| 4 | 13.1–16.9 | 2 | Live plan | "Now" board at 19:14 | Every dish, by the **clock** | Ring on "Salmon ... 13 min left" | same page, `#now=19:14` |
-| 5 | 16.9–20.6 | 2 | Judgement | Tap "Still glassy: +3 min" on the salmon check | Not ready? It **re-plans** | Ring on the toast "Dinner moves to about 19:33" | same page, `#now=19:26` |
-| 6 | 20.6–24.4 | 2 | Mirror ending | Beat card | "You decide." It plans. You cook. + repo | Repo link | — |
+| # | Time | Bars | On screen | Caption | Proof |
+|---|---|---|---|---|---|
+| 1 | 0.0–5.3 | 3 | A recorded run: the person's message, then the agent's real reply | Ask your agent about **dinner** | Highlight on "I cook it until it's opaque and flakes, per UK guidance." |
+| 2 | 5.3–8.8 | 2 | The real plan.py printout for that run | It plans **backwards** from dinner | Ring on "start 6:18pm eat 7:30pm", then "0 errors, 0 warnings" |
+| 3 | 8.8–14.1 | 3 | The page the run built, reel at the salmon step | Every step is a **picture** | Ring on the reel caption |
+| 4 | 14.1–17.6 | 2 | "Now" board at 7:14 pm | Every dish, by the **clock** | Ring on "Salmon ... 13 min left" |
+| 5 | 17.6–21.2 | 2 | Tap "Still glassy: +3 min" | Not ready? It **re-plans** | Ring on "Food now ready at about 7:33 pm" |
+| 6 | 21.2–24.7 | 2 | End card | Ask your agent about dinner. It plans. You cook. + repo | — |
 
-Real UI and real output only. The page clock is set with the page's own `#now=` hash, which the page supports for demos. Two beat cards.
+The run: a fresh agent with only the skill got the message in shot 1 and the video transcript. Its reply, plan and page are used as they came out. `config.json` (not committed) points `record.py` at that run.
