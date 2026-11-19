@@ -26,12 +26,32 @@ Every step has one animated picture, drawn in a paper cut-out style on a 640 × 
 | `board` | Work on one or two pieces: coat, season, press. | `part`, `n: 1 \| 2`, `action: "coat" \| "season" \| "press"`, `state`, `scale`, `tags`. |
 | `tray` | A baking tray, on the counter or in the oven. | `have: [groups]` (already on), `add: [groups]` (dropped on), `push: "left" \| "right"` (slides `have` aside first), `oven: true` (inside a hot oven), `hot: true` (steam), `done: true` (sparkles), `temps`, `tags`. Slots: `all`, `left`, `mid`, `right`, `leftHalf`, `rightHalf`. |
 | `pot` | Boiling or simmering in a saucepan. | `heat: "boil" \| "simmer" \| "off"`, `liquid: "water" \| "stock" \| "sauce" \| "none"`, `color` (hex, for a white sauce or a chilli), `lid: true`, `have`, `add`, `tags`. |
-| `pan` | A frying pan on the hob. | `heat: "high" \| "medium" \| "low"`, `color` (a sauce in the pan, so eggs or meatballs sit in it), `have`, `add` (groups take `slot`), `flip: true` (turns the first piece), `tags`. |
+| `pan` | A frying pan or wok on the hob. | `heat: "high" \| "medium" \| "low"`, `color` (a sauce in the pan, so eggs or meatballs sit in it), `have`, `add` (groups take `slot`), `flip: true` (turns the first piece), `mix` (see below), `tags`. |
 | `probe` | A probe temperature check. | `on: "pan" \| "tray"`, `part`, `state`, `scale`, `temp` (°C), `hold` (seconds), `tags`. |
-| `plate` | Serving. | `items: [{part, n, state, scale}]`, `tags`. Food is drawn cooked, except foods eaten raw (cheese, tofu and its aliases, avocado, herbs, tomato, cucumber, olives, yoghurt, citrus). Set `"state": {"cooked": false}` to change that. |
+| `plate` | Serving. | `items: [{part, n, state, scale}]`, `mix` (see below), `tags`. Food is drawn cooked, except foods eaten raw (cheese, tofu and its aliases, avocado, herbs, tomato, cucumber, olives, yoghurt, citrus). Set `"state": {"cooked": false}` to change that. |
 | `card` | Nothing else fits. A paper card with the step title. | `title`, `tool` (a part to show under it), `tags`. |
 
 Tags are strings, or `{"text": "...", "at": [x, y]}` to place one yourself (x 0–640, y 0–400).
+
+### Mixed dishes: `mix`
+
+`have`, `add` and `items` lay food out in a row, one group beside the next. That is right for a traybake or a plate of separate things. It is wrong for a dish that is stirred together (fried rice, a stir-fry, a risotto, pasta in sauce): the cook sees one dish, not separate piles.
+
+Use `mix` on a `pan` or `plate` scene instead:
+
+```json
+"mix": {"base": "rice", "color": "#c8894a", "pour": true,
+        "bits": [{"part": "diced carrot", "n": 7}, {"part": "broccoli", "n": 4, "state": {"cut": true}}]}
+```
+
+- `base`: the heap the rest is folded into: `rice`, `noodles`, `pasta`, `spaghetti`, `mash`. Use `"none"` for a stir-fry with no base: the pieces scatter across the pan.
+- `bits`: groups of small pieces mixed through the heap, in a shuffled order. Pieces are drawn small, so use cut or diced forms.
+- `color`: a sauce that tints the heap. `pour: true` animates the sauce going in.
+- `cooked: false` draws the pieces raw (meat going into the pan). The default is cooked.
+- `add` on a `pan` with `mix` drops the new food into the dish at mixed positions, not in a row.
+- `items` on a `plate` with `mix` sit on top as a garnish.
+
+Rule: from the step where foods are stirred together, every later picture uses `mix`. Never show a mixed dish as separate piles.
 
 ## Library scenes
 
