@@ -464,6 +464,11 @@ class Plan:
         for key in ("part", "tool", "pileOf"):
             if sc.get(key):
                 out.append(sc[key])
+        mx = sc.get("mix")
+        if isinstance(mx, dict):
+            if mx.get("base", "rice") != "none":
+                out.append(mx.get("base", "rice"))
+            out += [g["part"] for g in mx.get("bits", []) if isinstance(g, dict) and g.get("part")]
         return out
 
     # ------------------------------------------------------------- what if a check fails

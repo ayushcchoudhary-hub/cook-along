@@ -70,6 +70,8 @@ Publish or send `index.html`. Say in one or two lines what changed from the sour
 ## Rules that matter most
 
 - **Label every item in a picture, or none.** Never label one thing and leave the rest.
+- **A mixed dish is one dish.** Once foods are stirred together, draw them with `mix`, never as separate piles.
+- **Dishes are what the cook tracks.** For a one-pan meal, use stages (Prep, Wok), not one dish per ingredient.
 - **The amount appears at the first step that touches the food.**
 - **One line per step.** The picture, the chips and the timer carry the rest. Longer detail goes in `full` (closed by default).
 - **Metric and UK words**: g, ml, °C, hob, frying pan, courgette. Every oven step shows conventional and fan.

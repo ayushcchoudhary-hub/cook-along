@@ -27,7 +27,8 @@ let shifts=LS.get('shifts',[]);let oven=LS.get('oven',(PLAN.kitchen&&PLAN.kitche
 let done=LS.get('done',{});let have=LS.get('have',{});let timers=LS.get('timers',{});
 const STEPS=PLAN.steps.slice().sort((a,b)=>(C.steps[a.id]||{}).start-(C.steps[b.id]||{}).start);
 const BYID=Object.fromEntries(PLAN.steps.map(s=>[s.id,s]));
-const DISH=Object.fromEntries((PLAN.dishes||[]).map((d,i)=>[d.id,Object.assign({col:`var(--d${(i%6)+1})`},d)]));
+const DISH_NAMED={red:1,blue:2,green:3,amber:4,purple:5,teal:6};
+const DISH=Object.fromEntries((PLAN.dishes||[]).map((d,i)=>[d.id,Object.assign({},d,{col:`var(--d${DISH_NAMED[d.color]||((i%6)+1)})`})]));
 const inDish=(s,d)=>s.dish===d||(s.also||[]).includes(d);
 const dishOf=s=>DISH[s.dish]||{name:s.dish||'',col:'var(--ink-3)'};
 const rel=id=>(C.steps[id]||{start:0,end:0});
@@ -57,15 +58,16 @@ function planbar(){const first=clockStart(STEPS[0].id),sh=totalShift();const bus
  <div class="sum">Start at <b>${fmt(first)}</b>. ${C.rings_used?`Uses <b>${esc(C.rings_used)}</b> of your <b>${esc((PLAN.kitchen||{}).hobs??4)}</b> rings${C.peak_pans&&C.peak_pans.count>1?`, <b>${esc(C.peak_pans.count)}</b> pans at once`:''}.`:(C.oven&&C.oven.length?'Oven only, no rings.':'')}${sh?` <b>Running ${sh} min late.</b> <button class="btn" type="button" id="resetshift">Reset</button>`:''}</div>`;}
 function reel(){return `<section class="unit" id="reel"><div class="un">The whole dinner</div><h2>Every step in about ${Math.round(STEPS.length*4.5/10)*10} seconds</h2>
  <canvas class="sc" id="reelcv" role="img" aria-label="All steps played in order"></canvas><p class="reelcap" id="reelcap" aria-live="off"></p><div class="ctrls"><button class="btn" type="button" id="reelplay">Pause</button><button class="btn" type="button" id="reelgo">Open this step</button><span id="reelpos" aria-live="off"></span></div>
- <details open><summary>Every step at a glance</summary><div class="board" id="sboard">${STEPS.map((s,i)=>`<button type="button" data-go="${esc(s.id)}"><canvas width="10" height="10" aria-hidden="true"></canvas><span>${i} · ${esc(s.title)}</span></button>`).join('')}</div></details></section>`;}
+ <details open><summary>Every step at a glance</summary><div class="board" id="sboard">${STEPS.map((s,i)=>`<button type="button" data-go="${esc(s.id)}"><canvas width="10" height="10" aria-hidden="true"></canvas><span>${i+1} · ${esc(s.title)}</span></button>`).join('')}</div></details></section>`;}
 function need(){const groups={};(PLAN.ingredients||[]).forEach(g=>{(groups[g.dish]=groups[g.dish]||[]).push(g);});
  const ing=Object.entries(groups).map(([d,list])=>{const D=DISH[d]||{name:d,col:'var(--ink-3)'};return `<div><h3><span class="dot" style="background:${D.col}"></span>${esc(D.name)}</h3><ul>${list.map(g=>{const id='have-'+slugId(g.key);return `<li><input type="checkbox" id="${id}" data-have="${esc(g.key)}" ${have[g.key]?'checked':''}><label for="${id}">${/^(\d|about|½|¼|¾)/i.test(g.qty||'')?`<b>${esc(g.qty)}</b> ${esc(g.item||g.key)}`:`${esc(g.item||g.key)}${g.qty?`, <b>${esc(g.qty)}</b>`:''}`}${g.label&&g.label!=='source'?`<span class="lbl">${esc(g.label)}</span>`:''}${g.note?` <span style="color:var(--ink-3)">${esc(g.note)}</span>`:''}</label></li>`;}).join('')}</ul></div>`;}).join('');
  const eq=(PLAN.equipment||[]).map(e=>`<li><input type="checkbox" id="eq-${slugId(e)}" data-have="eq:${esc(e)}" ${have['eq:'+e]?'checked':''}><label for="eq-${slugId(e)}">${esc(e)}</label></li>`).join('');
  const rings={};STEPS.forEach(s=>{const r=(C.steps[s.id]||{}).ring;if(r)(rings[r]=rings[r]||[]).push(s);});
  const ringTxt=Object.keys(rings).sort().map(r=>`<div><b>Ring ${esc(r)}</b>: ${rings[r].map(s=>`${esc(s.title)} <span style="color:var(--ink-3)">${fmt(clockStart(s.id))}</span>`).join(' → ')}</div>`).join('');
  const ov=(C.oven||[]).reduce((a,o)=>{if(!a.length||a[a.length-1].setting!==o.setting)a.push(o);return a;},[]).map(o=>`<div><b>Oven ${esc(ovenText(o.setting))}</b> from ${fmt(eat+o.from+shiftAt(o.from))}</div>`).join('');
+ const kit=Object.keys(rings).length>1||ov||(C.peak_pans&&C.peak_pans.count>1);
  return `<section class="unit" id="need"><div class="un">Before you start</div><h2>What you need</h2><div class="need">${ing}<div><h3>Equipment</h3><ul>${eq}</ul></div></div>
- <div class="kitchen"><h3 class="un" style="margin:.4rem 0">Your kitchen plan</h3>${ov}${ringTxt}${C.peak_pans&&C.peak_pans.count>1?`<div>At the busiest moment: <b>${esc(C.peak_pans.count)} pans</b> on the go (${esc((C.peak_pans.which||[]).join(', '))}).</div>`:''}</div></section>`;}
+ ${kit?`<div class="kitchen"><h3 class="un" style="margin:.4rem 0">Your kitchen plan</h3>${ov}${ringTxt}${C.peak_pans&&C.peak_pans.count>1?`<div>At the busiest moment: <b>${esc(C.peak_pans.count)} pans</b> on the go (${esc((C.peak_pans.which||[]).join(', '))}).</div>`:''}</div>`:''}</section>`;}
 function ovenText(s){const m=String(s).match(/(\d+)(fan|conv)?/);if(!m)return s;const n=+m[1];const fan=m[2]!=='conv';const conv=fan?n+20:n,f=fan?n:n-20;return oven==='fan'?`${f}°C fan (${conv}°C conventional)`:`${conv}°C conventional (${f}°C fan)`;}
 function timeline(){const dishes=(PLAN.dishes||[]).map(d=>d.id);const first=Math.min(...STEPS.map(s=>rel(s.id).start)),last=0;
  const act=STEPS.filter(s=>(s.hands||'active')==='active').map(s=>[rel(s.id).start,rel(s.id).end]).sort((a,b)=>a[0]-b[0]);
@@ -82,7 +84,7 @@ function stepHTML(s,i){const D=dishOf(s);const t=typ(s);const passive=(s.hands||
  const aria=[s.scene&&s.scene.cap,(s.scene&&s.scene.tags||[]).map(x=>typeof x==='string'?x:x.text).join('. '),s.done].filter(Boolean).join('. ');
  const timer=(passive&&t>=2)||s.timer?`<button class="btn tbtn" type="button" data-timer="${esc(s.id)}">▶ ${esc(fmtDur(t))} timer</button>`:'';
  const chk=s.check?`<button class="btn good" type="button" data-pass="${esc(s.id)}">✓ ${esc(s.check.pass||'Passed')}</button><button class="btn bad" type="button" data-fail="${esc(s.id)}">${esc(s.check.fail||'Not yet')}: +${esc(s.check.fallback||5)} min</button>`:'';
- return `<article class="step" id="s-${esc(s.id)}" data-id="${esc(s.id)}"><div class="head"><span class="n">${i}</span><span class="dtag" style="background:${D.col}">${esc(D.name)}</span><h3>${esc(s.title)}</h3><span class="when" data-when="${esc(s.id)}">${fmt(clockStart(s.id))} · ${esc(durText(s))}</span></div>
+ return `<article class="step" id="s-${esc(s.id)}" data-id="${esc(s.id)}"><div class="head"><span class="n">${i+1}</span><span class="dtag" style="background:${D.col}">${esc(D.name)}</span><h3>${esc(s.title)}</h3><span class="when" data-when="${esc(s.id)}">${fmt(clockStart(s.id))} · ${esc(durText(s))}</span></div>
  <canvas class="sc" data-step="${esc(s.id)}" role="img" aria-label="${esc(aria||s.title)}"></canvas>
  <p class="line">${esc(s.line||'')}</p><div class="chips">${(s.chips||[]).map(chipHTML).join('')}${holdHTML(s)}${s.optional?'<span class="chip">Optional</span>':''}</div>
  ${s.check&&s.check.cue?`<p class="cue">${s.check.probe?'Probe: ':'Check: '}${esc(s.check.cue)}</p>`:''}${timer||chk?`<div class="acts">${timer}${chk}</div>`:''}
@@ -105,7 +107,7 @@ function nowBoard(){const n=nowRel();const first=clockStart(STEPS[0].id);let hea
  return `<div class="clock">${head}</div>${late}${rows}${body}`;}
 
 /* ---------- build ---------- */
-app.innerHTML=header()+reel()+need()+timeline()+`<section class="unit" id="now"><div class="un">Cooking now</div><h2>Where every dish is</h2><div class="now" id="nowbox" aria-live="polite"></div></section><section id="steps" aria-label="Steps">${STEPS.map(stepHTML).join('')}</section>`+foot();
+app.innerHTML=header()+`<section class="unit" id="now"><div class="un">Cooking now</div><h2>What to do now</h2><div class="now" id="nowbox" aria-live="polite"></div><p class="foot" style="margin-top:.5rem">Tap a row to open that step. Tap Done as you go.</p></section>`+reel()+need()+timeline()+`<section class="unit" id="stepsh"><div class="un">Step by step</div><h2>All ${STEPS.length} steps</h2></section><section id="steps" aria-label="Steps">${STEPS.map(stepHTML).join('')}</section>`+foot();
 function refresh(){document.getElementById('planbar').innerHTML=planbar();document.getElementById('nowbox').innerHTML=nowBoard();document.querySelectorAll('[data-when]').forEach(el=>{const s=BYID[el.dataset.when];el.textContent=`${fmt(clockStart(s.id))} · ${durText(s)}`;});document.querySelectorAll('.chips').forEach((el,i)=>{const s=STEPS[i];if(s)el.innerHTML=(s.chips||[]).map(chipHTML).join('')+holdHTML(s)+(s.optional?'<span class="chip">Optional</span>':'');});}
 refresh();
 
@@ -118,12 +120,12 @@ const units=[...document.querySelectorAll('canvas.sc[data-step]')].map(cv=>{cons
 const io=new IntersectionObserver(es=>es.forEach(e=>{const u=units.find(x=>x.cv===e.target);if(!u)return;u.vis=e.isIntersecting?e.intersectionRatio:0;if(e.isIntersecting&&!u.on){u.on=true;u.start=performance.now();u.loops=0;}if(!e.isIntersecting)u.on=false;}),{threshold:[0,.3,.6,1]});
 units.forEach(u=>{io.observe(u.cv);safeDraw(u.c,u.sc,keyT(u.sc));u.cv.addEventListener('click',()=>{u.start=performance.now();u.loops=0;u.on=true;});});
 const thumbs=[...document.querySelectorAll('#sboard canvas')].map((cv,i)=>({c:prep(cv,PW,PH,.5),sc:sceneOf(STEPS[i].scene,STEPS[i].title)}));
-function drawThumbs(){thumbs.forEach(t=>safeDraw(t.c,t.sc,keyT(t.sc)));units.forEach(u=>{if(!u.on||reduce)safeDraw(u.c,u.sc,keyT(u.sc));});}
+function drawThumbs(){NO_TAGS=true;thumbs.forEach(t=>safeDraw(t.c,t.sc,keyT(t.sc)));NO_TAGS=false;units.forEach(u=>{if(!u.on||reduce)safeDraw(u.c,u.sc,keyT(u.sc));});}
 const reelcv=document.getElementById('reelcv'),rc=prep(reelcv,PW,PH,1);let reelOn=!reduce,reelT=0,last=performance.now(),lastDraw=0;const SEG=4.5,TOTAL=STEPS.length*SEG;
 const reelScenes=STEPS.map(s=>sceneOf(s.scene,s.title));let reelIdx=-1;
 function drawReel(){const i=Math.min(STEPS.length-1,Math.floor(reelT/SEG)),f=(reelT-i*SEG)/SEG;const sc=reelScenes[i];safeDraw(rc,sc,reduce?keyT(sc):Math.min(sc.loop-.5,f*(sc.loop-.5)));
  rc.save();rc.fillStyle='#C4291F';rc.fillRect(0,PH-4,PW*(reelT/TOTAL),4);rc.restore();
- if(reelIdx!==i){reelIdx=i;document.getElementById('reelcap').textContent=`${i} · ${STEPS[i].title}`;document.getElementById('reelpos').textContent=`Picture ${i+1} of ${STEPS.length}`;}document.querySelectorAll('#sboard button').forEach((b,k)=>b.classList.toggle('on',k===i));}
+ if(reelIdx!==i){reelIdx=i;document.getElementById('reelcap').textContent=`${i+1} · ${STEPS[i].title}`;document.getElementById('reelpos').textContent=`Picture ${i+1} of ${STEPS.length}`;}document.querySelectorAll('#sboard button').forEach((b,k)=>b.classList.toggle('on',k===i));}
 document.getElementById('reelplay').onclick=e=>{reelOn=!reelOn;e.target.textContent=reelOn?'Pause':'Play';};
 document.getElementById('reelgo').onclick=()=>go(STEPS[Math.min(STEPS.length-1,Math.floor(reelT/SEG))].id);
 function frame(now){const dt=Math.min(.1,(now-last)/1000);last=now;FACES=true;

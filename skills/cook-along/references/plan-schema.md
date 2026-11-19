@@ -14,7 +14,7 @@ See `examples/salmon-traybake/plan.json` for a short, complete plan.
 | `summary` | string | One or two sentences on how the meal is organised. |
 | `eat_at` | "HH:MM" | Default eating time. The cook can change it on the page. |
 | `kitchen` | object | `{"hobs": 4, "ovens": 1, "oven_type": "fan"}`. `oven_type` is `fan` or `conv`. The page shows times as "6:18 pm". Add `"clock": "24h"` for 18:18. |
-| `dishes` | list | `[{"id": "salmon", "name": "Salmon"}]`. Up to 6. Each gets a colour, a lane on the timeline and a row on the "now" board. |
+| `dishes` | list | `[{"id": "salmon", "name": "Salmon", "color": "red"}]`. Up to 6. Each gets a colour, a lane on the timeline and a row on the "now" board. `color` is optional: `red`, `blue`, `green`, `amber`, `purple` or `teal`. Pick one that matches the food (green for veg). A dish is a thing the cook tracks separately: for a one-pan meal, use stages ("Prep", "Wok"), not one dish per ingredient. |
 | `ingredients` | list | See below. |
 | `equipment` | list of strings | Every tool the cook needs to find. |
 | `steps` | list | See below. Any order. The scheduler sets the times. |
@@ -28,6 +28,7 @@ See `examples/salmon-traybake/plan.json` for a short, complete plan.
 {"key": "baby potatoes", "dish": "pot", "item": "baby potatoes", "qty": "500 g", "label": "suggested", "note": "optional extra"}
 ```
 - `key` matches `needs[].item` in the steps. The checker uses it to find where the food is first touched.
+- `dish` groups the shopping list. It can be a `dishes[].id` or a plain heading such as `"Marinade and sauce"`. Group by what the cook makes, not by schedule lane.
 - `label`: leave it out when the amount comes from the source. `"suggested"` when you chose it.
 
 ## steps[]

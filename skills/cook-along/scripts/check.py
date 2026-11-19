@@ -40,7 +40,7 @@ SHEET_JS = """
     try { sc.draw(c, sc.key != null ? sc.key : sc.loop * .78); } catch (e) { fallbacks.push(st.id + ' (error: ' + e.message + ')'); }
     c.restore();
     c.fillStyle = '#15171C'; c.font = '600 13px sans-serif';
-    c.fillText(`${i} · ${st.id} · ${st.title}`.slice(0, 52), x, y + h + 16);
+    c.fillText(`${i + 1} · ${st.id} · ${st.title}`.slice(0, 52), x, y + h + 16);
     c.fillStyle = '#7E838C'; c.font = '12px sans-serif';
     c.fillText(`${C[st.id].clock} · ${(st.line || '').slice(0, 50)}`, x, y + h + 32);
   });

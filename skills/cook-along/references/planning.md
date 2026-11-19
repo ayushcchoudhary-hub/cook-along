@@ -31,6 +31,8 @@ Write each step's `needs` and `produces`. Then read down the list:
 | A step says "season to taste" with no salt in the shopping list. | Add salt and pepper to the ingredients. |
 | "Cook until done". | Say what done looks, feels or measures like. |
 | Source temperature below UK guidance. | Use the guidance. Explain it in `changes`. |
+| One dish per ingredient for a one-pan meal (Steak, Veg, Rice all in one wok). | Use stages the cook can see: "Prep" and "Wok". The timeline and "now" board then show one thing at a time. |
+| A stirred-together dish drawn as separate piles. | Use `mix` on the pan and plate pictures (scene-rules.md). |
 
 ## Batches and shared tools
 
